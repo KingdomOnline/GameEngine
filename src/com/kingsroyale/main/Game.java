@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
 
@@ -15,8 +16,20 @@ public class Game extends Canvas implements Runnable{
 	
 	public static String title = "Kings Royale";
 	
+	private Handler handler;
+	private Random r;
+	
+	
 	public Game() {
 		new Window(width, height, title, this);
+		
+		handler = new Handler();
+		r = new Random();
+		
+		//generate 2000 test objects [stress test] (SUCCESS: 2,000+ frames)
+		for (int i = 0; i < 2000; i++) {
+			handler.addObject(new Player(r.nextInt(width), r.nextInt(height), ID.Player));
+		}
 	}
 	
 	public synchronized void start() {
@@ -64,7 +77,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
-		
+		handler.tick();
 	}
 	
 	private void render() {
@@ -78,6 +91,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();
