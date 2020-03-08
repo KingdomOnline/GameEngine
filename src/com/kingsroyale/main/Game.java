@@ -2,15 +2,13 @@ package com.kingsroyale.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-//import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import com.kingsroyale.objects.Map;
+import com.kingsroyale.objects.Player;
 
 public class Game extends Canvas implements Runnable{
 
@@ -19,8 +17,8 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	static private Toolkit tk = Toolkit.getDefaultToolkit();
-	static int width = (int) tk.getScreenSize().getWidth();
-	static int height = (int) tk.getScreenSize().getHeight();
+	public static int width = (int) tk.getScreenSize().getWidth();
+	public static int height = (int) tk.getScreenSize().getHeight();
 	
 	public static String title = "Kings Royale";
 	
@@ -31,19 +29,15 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		handler = new Handler();
 		Player kingdomOwner = new Player(width/2 - 32, height/2 - 32, ID.Player);
-		this.addKeyListener(new KeyInput(handler, kingdomOwner));
+		Map iconMap = new Map(0, 0, ID.Map, true);
+		this.addKeyListener(new KeyInput(handler, kingdomOwner, iconMap));
 	
 		
 		new Window(title, this);
 		
-		//r = new Random();
-		
-		//generate 2000 test objects [stress test] (SUCCESS: 2,000+ frames)
-		/*for (int i = 0; i < 2000; i++) {
-			handler.addObject(new Player(r.nextInt(width), r.nextInt(height), ID.Player));
-		}*/
-		
 		handler.addObject(kingdomOwner);
+		//iconMap must be lowest to ensure no other gameObjects render
+		handler.addObject(iconMap);
 	}
 	
 	public synchronized void start() {
@@ -61,6 +55,7 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	public int frames = 0;
 	public void run() {
 		//Game Loop
 		long lastTime = System.nanoTime();
@@ -68,7 +63,6 @@ public class Game extends Canvas implements Runnable{
 		double ns = 1000000000 / tickCount;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		int frames = 0;
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -83,18 +77,17 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				updateFPS(frames);
+				System.out.println(frames);
 				frames = 0;
 			}
 		}
 		stop();
 	}
 	
-	private void updateFPS(int frames) {
-		JFrame frame = Window.getFrame();
-		JLabel fps = new JLabel("Frames Per Second");
-		fps.setText(String.format("FPS: %s", frames));
-		frame.getContentPane().add(fps);
+	private void updateFrames(Graphics g) {
+		g.setColor(Color.red);
+		g.setFont(new Font("Dialog", Font.BOLD, 18));
+		g.drawString("" + frames, 10, 20);
 	}
 	
 	private void tick() {
@@ -113,6 +106,8 @@ public class Game extends Canvas implements Runnable{
 		//background
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
+		
+		updateFrames(g);
 		
 		handler.render(g);
 		

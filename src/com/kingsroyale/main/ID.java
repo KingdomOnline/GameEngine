@@ -3,6 +3,7 @@ package com.kingsroyale.main;
 public enum ID {
 	
 	Player(),
-	Entity();
-	
+	Entity(),
+	Building(),
+	Map();
 }
