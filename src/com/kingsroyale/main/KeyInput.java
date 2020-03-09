@@ -5,17 +5,20 @@ import java.awt.event.KeyEvent;
 
 import com.kingsroyale.objects.Map;
 import com.kingsroyale.objects.Player;
+import com.kingsroyale.objects.shop.Shop;
 
 public class KeyInput extends KeyAdapter {
 
 	private Handler handler;
 	private Player player;
 	private Map map;
+	private Shop shop;
 	
-	public KeyInput(Handler handler, Player player, Map map) {
+	public KeyInput(Handler handler, Player player, Map map, Shop shop) {
 		this.handler = handler;
 		this.player = player;  
 		this.map = map;
+		this.shop = shop;
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -23,9 +26,10 @@ public class KeyInput extends KeyAdapter {
 		
 		//toggle map
 		if(key == KeyEvent.VK_M) map.toggleMap();
+		if(key == KeyEvent.VK_P) shop.toggleShop();
 		
 		//player can only move if map is hidden
-		if (map.isHidden()) {
+		if (map.isHidden() && shop.isHidden()) {
 			
 			//vertical movement
 			if(key == KeyEvent.VK_W) player.setVelY(-5);

@@ -18,12 +18,14 @@ public class Map extends GameObject {
 		
 	}
 
+	@Override
 	public void tick() {
 		
 		//TODO: Add icon selection logic
 		//TODO: Add icons 
 	}
-
+	
+	@Override
 	public void render(Graphics g) {
 		if (!isHidden()) {
 			g.setColor(Color.green);

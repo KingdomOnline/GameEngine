@@ -5,5 +5,7 @@ public enum ID {
 	Player(),
 	Entity(),
 	Building(),
-	Map();
+	Map(),
+	Shop(),
+	Kingdom();
 }

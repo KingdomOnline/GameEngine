@@ -14,6 +14,7 @@ public class Player extends GameObject {
 	
 	}
 
+	@Override
 	public void tick() {
 		
 		//Movement
@@ -24,6 +25,7 @@ public class Player extends GameObject {
 		y = Game.clamp(y, 0, Game.height - 64);
 	}
 
+	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(x, y, 32, 64);

@@ -9,6 +9,8 @@ import java.awt.image.BufferStrategy;
 
 import com.kingsroyale.objects.Map;
 import com.kingsroyale.objects.Player;
+import com.kingsroyale.objects.shop.Shop;
+import com.kingsroyale.objects.shop.ShopItem;
 
 public class Game extends Canvas implements Runnable{
 
@@ -30,14 +32,18 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		Player kingdomOwner = new Player(width/2 - 32, height/2 - 32, ID.Player);
 		Map iconMap = new Map(0, 0, ID.Map, true);
-		this.addKeyListener(new KeyInput(handler, kingdomOwner, iconMap));
+		Shop mainShop = new Shop(20, 20, ID.Shop, true);
+		this.addKeyListener(new KeyInput(handler, kingdomOwner, iconMap, mainShop));
 	
 		
 		new Window(title, this);
 		
+		setShopItems("filler text");
+		
 		handler.addObject(kingdomOwner);
-		//iconMap must be lowest to ensure no other gameObjects render
+		//iconMap & mainShop must be lowest to ensure no other gameObjects render
 		handler.addObject(iconMap);
+		handler.addObject(mainShop);
 	}
 	
 	public synchronized void start() {
@@ -114,6 +120,15 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 		
+	}
+	
+	public void setShopItems(String items) {
+		//TODO parse string form of json data
+		
+		for (int i = 0; i < 5; i++) {
+			ShopItem item = new ShopItem("Farm", "A hut for your people", null, 100); 
+			handler.addItem(item);
+		}
 	}
 	
 	public static int clamp(int var, int min, int max) {
