@@ -39,7 +39,7 @@ public class Shop extends GameObject{
 		
 		if (!isHidden()) {
 			g.setColor(Color.red);
-			g.fillRect(x, y, Game.width - 40, Game.height - 40);
+			g.fillRect(x, y, Game.width, Game.height);
 
 		}
 		

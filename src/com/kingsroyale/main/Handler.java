@@ -11,6 +11,28 @@ public class Handler {
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	LinkedList<ShopItem> items = new LinkedList<ShopItem>();
 	
+	public void drawShopItems(Graphics g) {
+		for (int i = 0; i < items.size(); i++) {
+			
+			ShopItem item = items.get(i);
+			int offset = item.getName().length() / 2;
+			
+			g.setColor(Color.LIGHT_GRAY);
+			if (i == 0) {
+				g.fillRect(120, 120, 100, 100); 
+				g.setColor(Color.cyan);
+				g.drawString(item.getName(), 155 - (offset * 5), (120 * 1) + 20);
+				
+			} else {
+				g.fillRect(120, 120 * i, 100, 100);
+				g.setColor(Color.cyan);
+				g.drawString(item.getName(), 155 - (offset * 5), (120 * i) + 20);
+				
+			}
+			
+		}
+	}
+	
 	//Updates GameObjects
 	public void tick() {
 		for (GameObject object : objects) {
@@ -24,25 +46,7 @@ public class Handler {
 			
 			object.render(g);
 			if (object.id == ID.Shop && !((Shop) object).isHidden()) {
-				for (int i = 0; i < items.size(); i++) {
-					
-					ShopItem item = items.get(i);
-					int offset = item.getName().length() / 2;
-					
-					g.setColor(Color.LIGHT_GRAY);
-					if (i == 0) {
-						g.fillRect(120, 120 * 1, 100, 100); 
-						g.setColor(Color.cyan);
-						g.drawString(item.getName(), 155 - offset, (120 * 1) + 20);
-						
-					} else {
-						g.fillRect(120, 120 * i, 100, 100);
-						g.setColor(Color.cyan);
-						g.drawString(item.getName(), 155 - offset, (120 * i) + 20);
-						
-					}
-					
-				}
+				drawShopItems(g);
 			}
 	
 		}

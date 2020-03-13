@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		Player kingdomOwner = new Player(width/2 - 32, height/2 - 32, ID.Player);
 		Map iconMap = new Map(0, 0, ID.Map, true);
-		Shop mainShop = new Shop(20, 20, ID.Shop, true);
+		Shop mainShop = new Shop(0, 0, ID.Shop, true);
 		this.addKeyListener(new KeyInput(handler, kingdomOwner, iconMap, mainShop));
 	
 		
@@ -125,7 +125,7 @@ public class Game extends Canvas implements Runnable{
 	public void setShopItems(String items) {
 		//TODO parse string form of json data
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			ShopItem item = new ShopItem("Farm", "A hut for your people", null, 100); 
 			handler.addItem(item);
 		}
