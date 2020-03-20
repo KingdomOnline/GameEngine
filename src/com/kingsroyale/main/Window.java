@@ -8,6 +8,7 @@ public class Window extends Canvas{
 
 	private static final long serialVersionUID = 140864808419304893L;
 	private static JFrame frame;
+	private static boolean fullScreen = true;
 	
 	public Window (String title, Game game) {
 		
@@ -30,5 +31,13 @@ public class Window extends Canvas{
 	
 	public static JFrame getFrame() {
 		return frame;
+	}
+	
+	public static void setFullScreen(boolean fullScreenBool) {
+		fullScreen = fullScreenBool;
+	}
+	
+	public static boolean isFullScreen() {
+		return fullScreen;
 	}
 }

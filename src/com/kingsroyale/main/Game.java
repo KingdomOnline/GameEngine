@@ -9,6 +9,8 @@ import java.awt.image.BufferStrategy;
 
 import com.kingsroyale.objects.Map;
 import com.kingsroyale.objects.Player;
+import com.kingsroyale.objects.buildings.Building;
+import com.kingsroyale.objects.buildings.BuildingType;
 import com.kingsroyale.objects.shop.Shop;
 import com.kingsroyale.objects.shop.ShopItem;
 
@@ -21,9 +23,10 @@ public class Game extends Canvas implements Runnable{
 	static private Toolkit tk = Toolkit.getDefaultToolkit();
 	public static int width = (int) tk.getScreenSize().getWidth();
 	public static int height = (int) tk.getScreenSize().getHeight();
-	
+	public static Window gameWindow;
 	public static String title = "Kings Royale";
-	
+
+
 	private Handler handler;
 	//private Random r;
 	
@@ -33,17 +36,35 @@ public class Game extends Canvas implements Runnable{
 		Player kingdomOwner = new Player(width/2 - 32, height/2 - 32, ID.Player);
 		Map iconMap = new Map(0, 0, ID.Map, true);
 		Shop mainShop = new Shop(0, 0, ID.Shop, true);
+		gameWindow = new Window(title, this);
 		this.addKeyListener(new KeyInput(handler, kingdomOwner, iconMap, mainShop));
-	
 		
-		new Window(title, this);
-		
+
 		setShopItems("filler text");
+
+		for (int i = 0; i < 3; i++) {
+			if (i == 0) {
+				Building townSquare = new Building(30, 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
+				//Add Building to building list for player collision.
+				handler.addBuilding(townSquare);
+				//Add Building to Object List for rendering
+				handler.addObject(townSquare);
+			} else {
+				//250 + 20px gap between each building
+				Building townSquare = new Building(30 + (270 * i), 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
+				//Add Building to building list for player collision.
+				handler.addBuilding(townSquare);
+				//Add Building to Object List for rendering
+				handler.addObject(townSquare);
+			}
+		}
+		
 		
 		handler.addObject(kingdomOwner);
 		//iconMap & mainShop must be lowest to ensure no other gameObjects render
 		handler.addObject(iconMap);
 		handler.addObject(mainShop);
+
 	}
 	
 	public synchronized void start() {
@@ -93,7 +114,7 @@ public class Game extends Canvas implements Runnable{
 	private void updateFrames(Graphics g) {
 		g.setColor(Color.red);
 		g.setFont(new Font("Dialog", Font.BOLD, 18));
-		g.drawString("" + frames, 10, 20);
+		g.drawString("FPS: " + frames, 10, 20);
 	}
 	
 	private void tick() {

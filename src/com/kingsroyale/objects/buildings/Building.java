@@ -8,6 +8,8 @@ import com.kingsroyale.main.ID;
 
 public class Building extends GameObject {
 	
+	private Color testColor;
+	
 	private String icon;
 	private String desc;
 	private String province;
@@ -15,13 +17,14 @@ public class Building extends GameObject {
 	private int width = 250;
 	private int height = 250;
 	
-	public Building (int x, int y, ID id, BuildingType type, String icon, String description, String province) {
+	public Building (int x, int y, ID id, BuildingType type, String icon, String description, String province, Color color) {
 		super(x, y, id);
 		
 		this.icon = icon;
 		this.desc = description;
 		this.province = province;
 		this.type = type;
+		this.setTestColor(color);
 	}
 	
 	@Override
@@ -34,7 +37,7 @@ public class Building extends GameObject {
 	public void render(Graphics g) {
 		
 		//temporary box to represent buildings
-		g.setColor(Color.red);
+		g.setColor(getTestColor());
 		g.fillRect(x, y, width, height);
 	}
 	
@@ -62,6 +65,14 @@ public class Building extends GameObject {
 	//Cannot change building type
 	public BuildingType getType() {
 		return type;
+	}
+
+	public Color getTestColor() {
+		return testColor;
+	}
+
+	public void setTestColor(Color testColor) {
+		this.testColor = testColor;
 	}
 
 }

@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import com.kingsroyale.objects.buildings.Building;
 import com.kingsroyale.objects.shop.*;
 
 public class Handler {
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	LinkedList<ShopItem> items = new LinkedList<ShopItem>();
+	public static LinkedList<Building> buildings = new LinkedList<Building>();
 	
 	public void drawShopItems(Graphics g) {
 		for (int i = 0; i < items.size(); i++) {
@@ -67,4 +69,9 @@ public class Handler {
 	public void removeItem(ShopItem item) {
 		this.items.remove(item);
 	}
+	
+	public void addBuilding(Building building) {
+		this.buildings.add(building);
+	}
+	
 }
