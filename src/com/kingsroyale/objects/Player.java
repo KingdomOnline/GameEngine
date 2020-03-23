@@ -26,7 +26,7 @@ public class Player extends GameObject {
 		x = Game.clamp(x, 0, Game.width - 32);
 		y = Game.clamp(y, 0, Game.height - 64);
 		
-		for (Building building : Handler.buildings) {
+		for (Building building : Handler.getBuildings()) {
 			
 			int bx = building.getX();
 			int by = building.getY();

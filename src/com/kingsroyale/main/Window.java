@@ -25,8 +25,7 @@ public class Window extends Canvas{
 		frame.setVisible(true);
 		frame.setFocusable(true);
 		game.start();
-		
-		
+	
 	}
 	
 	public static JFrame getFrame() {

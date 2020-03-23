@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
+import com.kingsroyale.menus.HomeScreen;
 import com.kingsroyale.objects.Map;
 import com.kingsroyale.objects.Player;
 import com.kingsroyale.objects.buildings.Building;
@@ -32,14 +33,18 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	public Game() {
-		handler = new Handler();
+		HomeScreen hs = new HomeScreen(0, 0, ID.Menu, null);
+		handler = new Handler(hs);
+		
 		Player kingdomOwner = new Player(width/2 - 32, height/2 - 32, ID.Player);
 		Map iconMap = new Map(0, 0, ID.Map, true);
 		Shop mainShop = new Shop(0, 0, ID.Shop, true);
 		gameWindow = new Window(title, this);
-		this.addKeyListener(new KeyInput(handler, kingdomOwner, iconMap, mainShop));
+		this.addKeyListener(new KeyInput(handler, hs, kingdomOwner, iconMap, mainShop));
+		this.addMouseListener(new MouseInput(hs));
 		
 
+		
 		setShopItems("filler text");
 
 		for (int i = 0; i < 3; i++) {
@@ -64,6 +69,7 @@ public class Game extends Canvas implements Runnable{
 		//iconMap & mainShop must be lowest to ensure no other gameObjects render
 		handler.addObject(iconMap);
 		handler.addObject(mainShop);
+		handler.addObject(hs);
 
 	}
 	
@@ -104,7 +110,6 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(frames);
 				frames = 0;
 			}
 		}
@@ -128,7 +133,7 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		
-		Graphics g = bs.getDrawGraphics();
+		final Graphics g = bs.getDrawGraphics();
 		
 		//background
 		g.setColor(Color.black);
@@ -146,9 +151,16 @@ public class Game extends Canvas implements Runnable{
 	public void setShopItems(String items) {
 		//TODO parse string form of json data
 		
-		for (int i = 0; i < 3; i++) {
-			ShopItem item = new ShopItem("Farm", "A hut for your people", null, 100); 
-			handler.addItem(item);
+		for (int i = 0; i < 2; i++) {
+			//Don't add 300px for first item
+			if (i == 0) {
+				ShopItem item = new ShopItem(40, (height/2) - 300, "Farm", "A hut for your people", null, 100); 
+				handler.addItem(item);
+			} else {
+				//Add 20 to 300 for a 20px gap between each shop item
+				ShopItem item = new ShopItem(40, (height/2) + (i * 20), "Farm", "A hut for your people", null, 100); 
+				handler.addItem(item);
+			}
 		}
 	}
 	

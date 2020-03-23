@@ -1,9 +1,11 @@
 package com.kingsroyale.main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import com.kingsroyale.menus.HomeScreen;
 import com.kingsroyale.objects.buildings.Building;
 import com.kingsroyale.objects.shop.*;
 
@@ -13,25 +15,23 @@ public class Handler {
 	LinkedList<ShopItem> items = new LinkedList<ShopItem>();
 	public static LinkedList<Building> buildings = new LinkedList<Building>();
 	
+	private HomeScreen hs;
+	
+	public Handler(HomeScreen hs) {
+		this.hs = hs;
+	}
+	
 	public void drawShopItems(Graphics g) {
 		for (int i = 0; i < items.size(); i++) {
 			
 			ShopItem item = items.get(i);
-			int offset = item.getName().length() / 2;
 			
 			g.setColor(Color.LIGHT_GRAY);
-			if (i == 0) {
-				g.fillRect(120, 120, 100, 100); 
-				g.setColor(Color.cyan);
-				g.drawString(item.getName(), 155 - (offset * 5), (120 * 1) + 20);
-				
-			} else {
-				g.fillRect(120, 120 * i, 100, 100);
-				g.setColor(Color.cyan);
-				g.drawString(item.getName(), 155 - (offset * 5), (120 * i) + 20);
-				
-			}
-			
+			g.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight()); 
+			g.setColor(Color.black);
+			g.setFont(new Font("MS PGothic", Font.PLAIN, 36));
+			g.drawString(item.getName(), item.getX() + 20, item.getY() + 45);
+		
 		}
 	}
 	
@@ -44,13 +44,21 @@ public class Handler {
 	
 	//Draws GameObjects to the screen
 	public void render(Graphics g) {
-		for (GameObject object : objects) {
-			
-			object.render(g);
-			if (object.id == ID.Shop && !((Shop) object).isHidden()) {
-				drawShopItems(g);
+		if (hs.isShown()) {
+			hs.render(g);
+		} else {
+			for (GameObject object : objects) {
+				
+				if (object == hs) {
+					return;
+				} else {
+					object.render(g);
+					if (object.id == ID.Shop && !((Shop) object).isHidden()) {
+						drawShopItems(g);
+					}
+				}
+		
 			}
-	
 		}
 	}
 	
@@ -72,6 +80,10 @@ public class Handler {
 	
 	public void addBuilding(Building building) {
 		this.buildings.add(building);
+	}
+	
+	public static LinkedList<Building> getBuildings() {
+		return buildings;
 	}
 	
 }

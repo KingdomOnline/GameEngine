@@ -7,5 +7,6 @@ public enum ID {
 	Building(),
 	Map(),
 	Shop(),
+	Menu(),
 	Kingdom();
 }
