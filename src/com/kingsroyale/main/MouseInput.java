@@ -1,6 +1,6 @@
 package com.kingsroyale.main;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -33,13 +33,29 @@ public class MouseInput implements MouseListener {
 		public Rectangle helpButton = new Rectangle((Game.width / 2) - 50, (Game.height/4) + 125, 100, 50);
 		public Rectangle quitButton = new Rectangle((Game.width / 2) - 50, (Game.height/4) + 200, 100, 50);
 		*/
-		
-		//Play button
-		if (mx >= playButton.x && mx <= playButton.x + 100 && my >= playButton.y && my <= playButton.y + 50) {
-			//Pressed Play
-			hs.setShown(false);
+
+		//Home Screen
+		if (hs.isShown()) {
+			//Play button
+			if (mx >= playButton.x && mx <= playButton.x + 100 && my >= playButton.y && my <= playButton.y + 50) {
+				//Pressed Play
+				hs.setShown(false);
+			}
+
+			//Help button
+			if (mx >= helpButton.x && mx <= helpButton.x + 100 && my >= playButton.y && my<= playButton.y + 50) {
+				//Pressed Help
+			}
+			
+			//quitButton
+			if (mx >= quitButton.x && mx <= quitButton.x + 100 && my >= quitButton.y && my<= quitButton.y + 50) {
+				//Pressed quit
+				System.exit(0);
+			}
 			
 		}
+
+
 		
 		
 	}

@@ -19,6 +19,14 @@ public class KeyInput extends KeyAdapter {
 	private Shop shop;
 	private JFrame frame = Window.getFrame();
 	
+	public void toggleHs() {
+		if (hs.isShown()) {
+			hs.setShown(false);
+		} else {
+			hs.setShown(true);
+		}
+	}
+	
 	public void toggleFullScreen() {
 		
 		if (Window.isFullScreen()) {
@@ -65,7 +73,7 @@ public class KeyInput extends KeyAdapter {
 		}
 		
 		//quit (TEMP)
-		if(key == KeyEvent.VK_ESCAPE) System.exit(0);
+		if(key == KeyEvent.VK_ESCAPE) toggleHs();
 		
 	}
 	
