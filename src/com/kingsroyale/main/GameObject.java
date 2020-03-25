@@ -4,10 +4,12 @@ import java.awt.Graphics;
 
 public abstract class GameObject {
 
+	
 	//Any class that extends the GameObject class can access these variables
 	protected int x, y;
 	protected ID id;
 	protected int velX, velY;
+	protected boolean shown = true;
 	
 	public GameObject(int x, int y, ID id) {
 		this.x = x;
@@ -40,6 +42,14 @@ public abstract class GameObject {
 	
 	public ID getId() {
 		return id;
+	}
+	
+	public boolean isShown() {
+		return shown;
+	}
+	
+	public void setShown(boolean shown) {
+		this.shown = shown;
 	}
 	
 	public void setVelX(int velX) {

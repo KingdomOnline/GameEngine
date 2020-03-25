@@ -1,6 +1,13 @@
 package com.kingsroyale.objects.shop;
 
-public class ShopItem {
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import com.kingsroyale.main.GameObject;
+import com.kingsroyale.main.ID;
+
+public class ShopItem extends GameObject {
 	
 	private int x;
 	private int y;
@@ -11,16 +18,14 @@ public class ShopItem {
 	private int width = 350;
 	private int height = 300;
 	
-	
-	public ShopItem(int x, int y, String name, String desc, String icon, int cost) {
+	public ShopItem(int x, int y, ID id, String name, String desc, String icon, int cost) {
 		
-		this.setX(x);
-		this.setY(y);
+		super(x, y, id);
 		this.name = name;
 		this.desc = desc;
 		this.icon = icon;
 		this.cost = cost;
-		
+		 
 	}
 	
 	
@@ -78,10 +83,25 @@ public class ShopItem {
 	public int getY() {
 		return y;
 	}
-
-
+	
 	public void setY(int y) {
 		this.y = y;
+	}
+
+
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void render(Graphics g) {
+		
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); 
+		g.setColor(Color.black);
+		g.setFont(new Font("MS PGothic", Font.PLAIN, 36));
+		g.drawString(this.getName(), this.getX() + 20, this.getY() + 45);
+		
 	}
 	
 }

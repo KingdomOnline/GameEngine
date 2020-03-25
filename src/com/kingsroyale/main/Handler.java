@@ -16,23 +16,15 @@ public class Handler {
 	public static LinkedList<Building> buildings = new LinkedList<Building>();
 	
 	private HomeScreen hs;
+	private Shop shop;
 	
 	public Handler(HomeScreen hs) {
 		this.hs = hs;
 	}
 	
-	public void drawShopItems(Graphics g) {
-		for (int i = 0; i < items.size(); i++) {
-			
-			ShopItem item = items.get(i);
-			
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight()); 
-			g.setColor(Color.black);
-			g.setFont(new Font("MS PGothic", Font.PLAIN, 36));
-			g.drawString(item.getName(), item.getX() + 20, item.getY() + 45);
-		
-		}
+	
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 	
 	//Updates GameObjects
@@ -48,16 +40,14 @@ public class Handler {
 			hs.render(g);
 		} else {
 			for (GameObject object : objects) {
-				
+				 
 				if (object == hs) {
-					return;
+					continue;
 				} else {
-					object.render(g);
-					if (object.id == ID.Shop && !((Shop) object).isHidden()) {
-						drawShopItems(g);
-					}
+					
+					if (object.isShown()) object.render(g);
+					
 				}
-		
 			}
 		}
 	}

@@ -2,6 +2,7 @@ package com.kingsroyale.objects.shop;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.LinkedList;
 
 import com.kingsroyale.main.Game;
 import com.kingsroyale.main.GameObject;
@@ -9,25 +10,19 @@ import com.kingsroyale.main.ID;
 
 public class Shop extends GameObject{
 	
-	private boolean hidden;
+	private LinkedList<ShopPage> pages = new LinkedList<ShopPage>();
+	private int activePage = 0;
 
-	public Shop(int x, int y, ID id, boolean hidden) {
+	public Shop(int x, int y, ID id) {
 		super(x, y, id);
-		
-		this.hidden = hidden;
-	}
-
-	
-	public void toggleShop() {
-		if (hidden) {
-			this.hidden = false;
-		} else {
-			this.hidden = true;
-		}
 	}
 	
-	public boolean isHidden() {
-		return hidden;
+	public ShopPage getPage(int n) {
+		return pages.get(n);
+	}
+	
+	public void addPage(ShopPage page) {
+		this.pages.add(page);
 	}
 	
 	public void tick() {
@@ -37,12 +32,23 @@ public class Shop extends GameObject{
 
 	public void render(Graphics g) {
 		
-		if (!isHidden()) {
-			g.setColor(Color.red);
-			g.fillRect(x, y, Game.width, Game.height);
-
-		}
+		g.setColor(Color.red);
+		g.fillRect(x, y, Game.width, Game.height);
 		
+	}
+
+	public void toggleShop() {
+	
+		if (this.shown) {
+			this.shown = false;
+			this.pages.get(activePage).setShown(false);
+			for (ShopItem item : this.pages.get(activePage).getItems()) {
+				item.setShown(false);
+			}
+		} else {
+			this.shown = true;
+			this.pages.get(activePage).setShown(true);
+		}
 		
 	}
 	

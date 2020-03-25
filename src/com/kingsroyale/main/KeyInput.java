@@ -60,7 +60,7 @@ public class KeyInput extends KeyAdapter {
 			if(key == KeyEvent.VK_P) shop.toggleShop();
 			
 			//player can only move if map is hidden
-			if (map.isHidden() && shop.isHidden()) {
+			if (!map.isShown() && !shop.isShown()) {
 				
 				//vertical movement
 				if(key == KeyEvent.VK_W) player.setVelY(-5);

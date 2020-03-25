@@ -7,14 +7,10 @@ import com.kingsroyale.main.Game;
 import com.kingsroyale.main.GameObject;
 import com.kingsroyale.main.ID;
 
-public class Map extends GameObject {
+public class Map extends GameObject { 
 	
-	private boolean hidden; 
-	
-	public Map(int x, int y, ID id, boolean hidden) {
+	public Map(int x, int y, ID id) {
 		super(x, y, id);
-	
-		this.hidden = hidden;
 		
 	}
 
@@ -24,27 +20,21 @@ public class Map extends GameObject {
 		//TODO: Add icon selection logic
 		//TODO: Add icons 
 	}
-	
+	 
 	@Override
 	public void render(Graphics g) {
-		if (!isHidden()) {
-			g.setColor(Color.green);
-			g.fillRect(x, y, Game.width, Game.height);
-		}
+		g.setColor(Color.green);
+		g.fillRect(x, y, Game.width, Game.height);
 	}
-	
+
 	public void toggleMap() {
-		if(this.hidden) {
-			this.hidden = false;
+		
+		if (this.shown) {
+			this.shown = false;
 		} else {
-			this.hidden = true;
+			this.shown = true;
 		}
+		
 	}
-	
-	public boolean isHidden() {
-		return hidden;
-	}
-	
-	
 
 }
