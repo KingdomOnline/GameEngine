@@ -48,6 +48,9 @@ public class Shop extends GameObject{
 		} else {
 			this.shown = true;
 			this.pages.get(activePage).setShown(true);
+			for (ShopItem item : this.pages.get(activePage).getItems()) {
+				item.setShown(true);
+			}
 		}
 		
 	}

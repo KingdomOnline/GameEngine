@@ -10,7 +10,7 @@ class User {
 
   String username;
   String password;
-  Properties prop;
+  //Properties prop;
 
   public User (String username, String password){
 

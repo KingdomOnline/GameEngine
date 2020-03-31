@@ -39,10 +39,6 @@ public class ShopPage extends GameObject{
 
 	public void tick() {}
 
-	public void render(Graphics g) {
-		for (ShopItem item : items) {
-			item.setShown(true);
-		}
-	}
+	public void render(Graphics g) {}
 	
 }

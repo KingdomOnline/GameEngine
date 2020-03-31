@@ -8,9 +8,6 @@ import com.kingsroyale.main.GameObject;
 import com.kingsroyale.main.ID;
 
 public class ShopItem extends GameObject {
-	
-	private int x;
-	private int y;
 	private String name;
 	private String desc;
 	private String icon;
@@ -69,26 +66,6 @@ public class ShopItem extends GameObject {
 		this.height = height;
 	}
 
-
-	public int getX() {
-		return x;
-	}
-
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-
-	public int getY() {
-		return y;
-	}
-	
-	public void setY(int y) {
-		this.y = y;
-	}
-
-
 	public void tick() {
 		// TODO Auto-generated method stub
 		
@@ -97,10 +74,10 @@ public class ShopItem extends GameObject {
 	public void render(Graphics g) {
 		
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); 
+		g.fillRect(getX(), getY(), getWidth(), getHeight()); 
 		g.setColor(Color.black);
 		g.setFont(new Font("MS PGothic", Font.PLAIN, 36));
-		g.drawString(this.getName(), this.getX() + 20, this.getY() + 45);
+		g.drawString(getName(), getX() + 20, getY() + 45);
 		
 	}
 	

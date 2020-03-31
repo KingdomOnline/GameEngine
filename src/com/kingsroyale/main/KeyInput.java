@@ -17,7 +17,7 @@ public class KeyInput extends KeyAdapter {
 	private Player player;
 	private Map map;
 	private Shop shop;
-	private JFrame frame = Window.getFrame();
+	private JFrame frame = Game.gameWindow.getFrame();
 	
 	public void toggleHs() {
 		if (hs.isShown()) {

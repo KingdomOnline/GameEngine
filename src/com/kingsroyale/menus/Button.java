@@ -1,19 +1,18 @@
 package com.kingsroyale.menus;
 
-import javax.swing.JFrame;
+import java.awt.Graphics;
 
-public class Button {
+import com.kingsroyale.main.GameObject;
+import com.kingsroyale.main.ID;
+
+public class Button extends GameObject {
 
 	private String value;
-	private JFrame frame;
-	private int x;
-	private int y;
 	
-	public Button (JFrame frame, String value, int x, int y) {
+	public Button (int x, int y, ID id, String value) {
+		super(x, y, id);
+		
 		this.value = value;
-		this.frame = frame;
-		this.x = x;
-		this.y = y;
 	}
 
 	public String getValue() {
@@ -24,20 +23,14 @@ public class Button {
 		this.value = value;
 	}
 
-	public int getX() {
-		return x;
+	public void tick() {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
+	
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -35,7 +35,7 @@ public class Game extends Canvas implements Runnable{
 	private Shop mainShop;
 	private LinkedList<ShopPage> pages = new LinkedList<ShopPage>();
 	
-	private String[][] items = {{"Farm", "Grows food for your village"}, {"Hut", "A place for people in your province to live."}, {"Farm", "Grows food for your village"}, {"Hut", "A place for people in your province to live."}};
+	private String[][] items = {{"Game", "Grows food for your village"}};
 	
 	public Game() {
 		
@@ -53,6 +53,7 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler, hs, kingdomOwner, iconMap, mainShop));
 		this.addMouseListener(new MouseInput(hs));
 
+		//TODO: Make this generate buildings on province load. 
 		for (int i = 0; i < 3; i++) {
 			if (i == 0) {
 				Building townSquare = new Building(30, 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
@@ -75,7 +76,7 @@ public class Game extends Canvas implements Runnable{
 		//iconMap & mainShop must be lowest to ensure no other gameObjects render
 		handler.addObject(iconMap);
 		handler.addObject(mainShop);
-		setShopItems();
+		createShop();
 		handler.addObject(hs);
 
 	}
@@ -157,7 +158,7 @@ public class Game extends Canvas implements Runnable{
 	
 	LinkedList<ShopItem> sendlist = new LinkedList<ShopItem>();
 	
-	public Shop setShopItems() {
+	public Shop createShop() {
 		
 		
 		//Generate 1 page for every 6 items. 
@@ -166,10 +167,10 @@ public class Game extends Canvas implements Runnable{
 		double pageCount = Math.ceil(items.length/6.0);
 		for (int i = 0; i < pageCount; i++) {
 					
-			ShopPage page = new ShopPage(0, 0, ID.Shop, i);
+			ShopPage page = new ShopPage(40, 40, ID.Shop, i);
 			page.setShown(false);
 			pages.add(page);
-			handler.addObject(page);
+			//handler.addObject(page);
 			mainShop.addPage(page);
 					
 		}
