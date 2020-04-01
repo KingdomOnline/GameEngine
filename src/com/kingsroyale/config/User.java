@@ -12,85 +12,106 @@ class User {
   String password;
   Properties prop;
 
-  public User (String username, String password){
-
-    try {
-      if(!User.userExists(username)) return;
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  private User (String username, String password){
 
     this.username = username;
     this.password = password;
 
   }
 
-  public Boolean setPassword(String newPassword) throws IOException{
+  public boolean setPassword(String newPassword){
     Properties prop = new Properties();
     InputStream input = getClass().getClassLoader().getResourceAsStream("user.properties");
 
-    if (input != null) {
+    try {
       prop.load(input);
-    } else {
-      throw new FileNotFoundException("property file 'user.properties' not found in the classpath");
+
+      if(prop.getProperty(this.username) == newPassword) { return false; }
+
+      prop.replace(this.username, newPassword);
+      password = newPassword;
+      prop.store(new FileOutputStream("/src/com/kingsroyale/resources/properties.config"), null);
+      input.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    if(prop.getProperty(this.username) == newPassword) { return false; }
-    
-    prop.replace(this.username, newPassword);
-    password = newPassword;
-    prop.store(new FileOutputStream("/src/com/kingsroyale/resources/properties.config"), null);
-    input.close();
+
     return true;
   }
 
-  public Boolean setUsername(String newUsername) throws IOException{
+  public boolean setUsername(String newUsername) {
     Properties prop = new Properties();
     InputStream input = getClass().getClassLoader().getResourceAsStream("user.properties");
 
-    if (input != null) {
+    try {
       prop.load(input);
-    } else {
-      throw new FileNotFoundException("property file 'user.properties' not found in the classpath");
+
+      if(prop.getProperty(newUsername) != null || this.username.equals(newUsername)) return false;
+      prop.remove(this.username);
+      prop.setProperty(newUsername, this.password);
+      username = newUsername;
+      prop.store(new FileOutputStream("/src/com/kingsroyale/resources/properties.config"), null);
+      input.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    if(prop.getProperty(newUsername) != null || this.username.equals(newUsername)) return false;
-    prop.remove(this.username);
-    prop.setProperty(newUsername, this.password);
-    username = newUsername;
-    prop.store(new FileOutputStream("/src/com/kingsroyale/resources/properties.config"), null);
-    input.close();
+
     return true;
   }
 
-  public static Boolean userExists(String username) throws IOException {
+  public static boolean userExists(String username) {
     Properties prop = new Properties();
     InputStream input = User.class.getClassLoader().getResourceAsStream("user.properties");
 
-    if (input != null) {
+    try {
       prop.load(input);
-    } else {
-      throw new FileNotFoundException("property file 'user.properties' not found in the classpath");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    if(prop.getProperty(username) == null){         return false;
-    }
-    return true;
+
+    return prop.getProperty(username) != null;
   }
 
-  public static User createUser(String username, String password) throws IOException{
+  public static boolean passwordIsCorrect(String username, String password){
     Properties prop = new Properties();
     InputStream input = User.class.getClassLoader().getResourceAsStream("user.properties");
 
-    if (input != null) {
+    try {
       prop.load(input);
-    } else {
-      throw new FileNotFoundException("property file 'user.properties' not found in the classpath");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    if(User.userExists(username)) return null;
 
-    prop.setProperty(username, password);
+    return prop.getProperty(username).equals(password);
+  }
 
-    prop.store(new FileOutputStream("/src/com/kingsroyale/resources/properties.config"), null);
-    input.close();
+  public static User createUser(String username, String password) {
+    Properties prop = new Properties();
+    InputStream input = User.class.getClassLoader().getResourceAsStream("user.properties");
+
+    try {
+      prop.load(input);
+
+      if(User.userExists(username)) return null;
+
+      prop.setProperty(username, password);
+
+      prop.store(new FileOutputStream("/src/com/kingsroyale/resources/properties.config"), null);
+      input.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     return new User(username, password);
+  }
+
+  public static User getUser(String username, String password){
+
+    if(!User.userExists(username)) return null;
+    if(!User.passwordIsCorrect(username, password)) return null;
+
+    return new User(username, password);
+
   }
 
 }
