@@ -28,14 +28,13 @@ public class Game extends Canvas implements Runnable{
 	public static int height = (int) tk.getScreenSize().getHeight();
 	public static Window gameWindow;
 	public static String title = "Kings Royale";
-	private LinkedList<ShopItem> itemList = new LinkedList<ShopItem>();
 
 	private HomeScreen hs;
 	private Handler handler;
 	private Shop mainShop;
 	private LinkedList<ShopPage> pages = new LinkedList<ShopPage>();
 	
-	private String[][] items = {{"Game", "Grows food for your village"}};
+	private String[][] items = {{"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}, {"Game", "Grows food for your village"}};
 	
 	public Game() {
 		
@@ -51,25 +50,37 @@ public class Game extends Canvas implements Runnable{
 		handler.setShop(mainShop);
 		gameWindow = new Window(title, this);
 		this.addKeyListener(new KeyInput(handler, hs, kingdomOwner, iconMap, mainShop));
-		this.addMouseListener(new MouseInput(hs));
+		this.addMouseListener(new MouseInput(hs, mainShop));
 
 		//TODO: Make this generate buildings on province load. 
-		for (int i = 0; i < 3; i++) {
-			if (i == 0) {
-				Building townSquare = new Building(30, 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
-				//Add Building to building list for player collision.
-				handler.addBuilding(townSquare);
-				//Add Building to Object List for rendering
-				handler.addObject(townSquare);
+		for (int i = 0; i < 8; i++) {
+			// <1920x1080
+			if (Game.width < 1920) {
+				if (i == 0) {
+					Building townSquare = new Building(30, 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
+					handler.addBuilding(townSquare);
+					handler.addObject(townSquare);
+				} else {
+					//250 + 20px gap between each building
+					Building townSquare = new Building(30 + (170 * i), 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
+					handler.addBuilding(townSquare);
+					handler.addObject(townSquare);
+				}
 			} else {
-				//250 + 20px gap between each building
-				Building townSquare = new Building(30 + (270 * i), 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
-				//Add Building to building list for player collision.
-				handler.addBuilding(townSquare);
-				//Add Building to Object List for rendering
-				handler.addObject(townSquare);
+				// >=1920x1080
+				if (i == 0) {
+					Building townSquare = new Building(30, 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
+					//Add Building to building list for player collision.
+					handler.addBuilding(townSquare);
+					handler.addObject(townSquare);
+				} else {
+					//250 + 20px gap between each building
+					Building townSquare = new Building(30 + (270 * i), 30, ID.Building, BuildingType.Resident, "icon", "description", "province", Color.blue);
+					handler.addBuilding(townSquare);
+					handler.addObject(townSquare);
+				}
 			}
-		}
+		} 
 		
 		
 		handler.addObject(kingdomOwner);
@@ -178,25 +189,29 @@ public class Game extends Canvas implements Runnable{
 		for (int i = 0; i < pages.size(); i++) {	
 			
 			for (int n = 0; n < items.length; n++) {
+				
+				int itemNumber = i + n;
+				
 				ShopPage page = pages.get(i);
+				
 				//Don't add 300px for first item
 				if (n == 0) {
-					ShopItem item = new ShopItem(40, (height/2) - 300, ID.Shop, items[i + n][0], items[i + n][1], null, 100); 
+					ShopItem item = new ShopItem(40, (height/2) - 300, ID.Shop, items[itemNumber][0], items[i + n][1], null, 100); 
 					item.setShown(false);
 					handler.addObject(item);
 					page.addItem(item);
 				} else {
 					//Add 20 to 300 for a 20px gap between each shop item
-					ShopItem item = new ShopItem(40, (height/2) + (n * 20), ID.Shop, items[i + n][0], items[i + n][1], null, 100); 
+					ShopItem item = new ShopItem(40, (height/2) + (n * 20), ID.Shop, items[itemNumber][0], items[i + n][1], null, 100); 
 					item.setShown(false);
 					handler.addItem(item);
 					page.addItem(item);
 				}
-			}
-			
+			}	
 		}
 		
 		return mainShop;
+
 	}
 	
 	public static int clamp(int var, int min, int max) {

@@ -19,7 +19,7 @@ public class Province {
 		this.name = name;
 		this.gold = gold;
 		this.pop = pop;
-		this.attack = attack;
+		this.attack = attack; 
 		this.defense = defense;
 	}
 

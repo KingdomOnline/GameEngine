@@ -1,13 +1,12 @@
 package com.kingsroyale.main;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
 import com.kingsroyale.menus.HomeScreen;
 import com.kingsroyale.objects.buildings.Building;
-import com.kingsroyale.objects.shop.*;
+import com.kingsroyale.objects.shop.Shop;
+import com.kingsroyale.objects.shop.ShopItem;
 
 public class Handler {
 

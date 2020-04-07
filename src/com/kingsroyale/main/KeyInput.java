@@ -17,7 +17,6 @@ public class KeyInput extends KeyAdapter {
 	private Player player;
 	private Map map;
 	private Shop shop;
-	private JFrame frame = Game.gameWindow.getFrame();
 	
 	public void toggleHs() {
 		if (hs.isShown()) {
@@ -25,21 +24,6 @@ public class KeyInput extends KeyAdapter {
 		} else {
 			hs.setShown(true);
 		}
-	}
-	
-	public void toggleFullScreen() {
-		
-		if (Window.isFullScreen()) {
-			frame.setExtendedState(JFrame.NORMAL);
-			frame.setUndecorated(false);
-			Window.setFullScreen(false);
-		} else {
-			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-			frame.setUndecorated(true);
-			Window.setFullScreen(true);
-		}
-		
-		//frame.pack();
 	}
 	
 	public KeyInput(Handler handler, HomeScreen hs, Player player, Map map, Shop shop) {
@@ -55,7 +39,6 @@ public class KeyInput extends KeyAdapter {
 		
 		if (!hs.isShown()) {
 			//toggle map
-			if(key == KeyEvent.VK_F11) toggleFullScreen();
 			if(key == KeyEvent.VK_M) map.toggleMap();
 			if(key == KeyEvent.VK_P) shop.toggleShop();
 			

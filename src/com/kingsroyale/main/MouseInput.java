@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import com.kingsroyale.menus.Button;
 import com.kingsroyale.menus.HomeScreen;
+import com.kingsroyale.objects.shop.Shop;
 
 public class MouseInput implements MouseListener {
 	
@@ -12,27 +14,25 @@ public class MouseInput implements MouseListener {
 	public Rectangle helpButton = HomeScreen.helpButton;
 	public Rectangle quitButton = HomeScreen.quitButton;
 
+	public Button nextButton = Shop.nextButton;
+	public Button prevButton = Shop.prevButton;
+
 	private HomeScreen hs;
-	
-	public MouseInput (HomeScreen hs) {
+	private Shop shop;
+
+	public MouseInput (HomeScreen hs, Shop shop) {
 		this.hs = hs;
+		this.shop = shop;
 	}
 	
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void mousePressed(MouseEvent e) {
 		
 		int mx = e.getX();
 		int my = e.getY();
-		
-		/*
-		public Rectangle playButton = new Rectangle((Game.width / 2) - 50, (Game.height/4) + 50, 100, 50);
-		public Rectangle helpButton = new Rectangle((Game.width / 2) - 50, (Game.height/4) + 125, 100, 50);
-		public Rectangle quitButton = new Rectangle((Game.width / 2) - 50, (Game.height/4) + 200, 100, 50);
-		*/
 
 		//Home Screen
 		if (hs.isShown()) {
@@ -55,7 +55,20 @@ public class MouseInput implements MouseListener {
 			
 		}
 
+		//Shop Prev & Next
 
+		if (shop.isShown()) {
+			//Next button
+			if (mx >= nextButton.x && mx <= nextButton.x - 100 && my >= nextButton.y && my <= nextButton.y + 50) {
+				shop.activePage += 1;
+			}
+			//Prev Button
+			if (mx >= prevButton.x && mx <= prevButton.x - 100 && my >= prevButton.y && my <= prevButton.y + 50) {
+				shop.activePage -=1;
+
+			}
+
+		}
 		
 		
 	}
