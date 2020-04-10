@@ -38,7 +38,7 @@ public class Handler {
 		if (hs.isShown()) {
 			hs.render(g);
 		} else {
-			for (GameObject object : objects) {
+			for (GameObject object : objects) {//maybe only showing game objects and not items
 				 
 				if (object == hs) {
 					continue;
@@ -47,6 +47,9 @@ public class Handler {
 					if (object.isShown()) object.render(g);
 					
 				}
+			}
+			for (ShopItem object : items) {//maybe only showing game objects and not items
+				if (object.isShown()) object.render(g);
 			}
 		}
 	}

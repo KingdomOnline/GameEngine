@@ -30,7 +30,6 @@ public class MouseInput implements MouseListener {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		
 		int mx = e.getX();
 		int my = e.getY();
 

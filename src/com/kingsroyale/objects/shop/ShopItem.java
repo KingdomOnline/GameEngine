@@ -72,9 +72,9 @@ public class ShopItem extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		
+
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(getX(), getY(), getWidth(), getHeight()); 
+		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(Color.black);
 		g.setFont(new Font("MS PGothic", Font.PLAIN, 36));
 		g.drawString(getName(), getX() + 20, getY() + 45);
