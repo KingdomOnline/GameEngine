@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'idea'
+    id 'eclipse'
+}
+
+group "flaymed"
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
