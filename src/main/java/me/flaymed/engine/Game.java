@@ -1,5 +1,6 @@
 package me.flaymed.engine;
 
+import me.flaymed.engine.enums.GameState;
 import java.awt.Canvas;
 
 public class Game extends Canvas implements Runnable{
@@ -7,9 +8,12 @@ public class Game extends Canvas implements Runnable{
     private boolean running = false;
     private Window gameWindow;
     private Thread windowThread;
+    private GameState state;
+
 
     public Game(String title) {
         this.gameWindow = new Window(title, this);
+        this.state = GameState.Menu;
     }
 
     public synchronized void start() {
@@ -32,6 +36,14 @@ public class Game extends Canvas implements Runnable{
 
     public Window getGameWindow() {
         return gameWindow;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
+    }
+
+    public GameState getState() {
+        return state;
     }
 
 }
