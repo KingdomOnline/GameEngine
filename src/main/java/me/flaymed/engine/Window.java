@@ -1,6 +1,6 @@
 package me.flaymed.engine;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class Window {
 
