@@ -17,6 +17,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public synchronized void start() {
+        running = true;
         windowThread = new Thread(this);
         windowThread.start();
     }
@@ -44,6 +45,14 @@ public class Game extends Canvas implements Runnable{
 
     public GameState getState() {
         return state;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public boolean isRunning() {
+       return running;
     }
 
 }
