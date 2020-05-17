@@ -13,7 +13,6 @@ public class Game extends Canvas implements Runnable{
     private GameState state;
     private Handler mainHandler;
 
-
     public Game(String title) {
         this.gameWindow = new Window(title, this);
         this.state = GameState.Menu;
@@ -37,7 +36,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void run() {
-
+        //TODO: Add a basic gameloop for this (not player loop)
     }
 
     public Window getGameWindow() {
@@ -50,10 +49,6 @@ public class Game extends Canvas implements Runnable{
 
     public GameState getState() {
         return state;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
     }
 
     public boolean isRunning() {
