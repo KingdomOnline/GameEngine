@@ -4,6 +4,9 @@ import me.flaymed.engine.enums.GameState;
 import me.flaymed.engine.handler.Handler;
 
 import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 
@@ -12,11 +15,14 @@ public class Game extends Canvas implements Runnable{
     private Thread windowThread;
     private GameState state;
     private Handler mainHandler;
+    private int width, height;
 
-    public Game(String title) {
+    public Game(String title, int width, int height) {
         this.gameWindow = new Window(title, this);
         this.state = GameState.Menu;
         this.mainHandler = new Handler();
+        this.width = width;
+        this.height = height;
     }
 
     public synchronized void start() {
@@ -37,6 +43,30 @@ public class Game extends Canvas implements Runnable{
 
     public void run() {
         //TODO: Add a basic gameloop for this (not player loop)
+
+        while(isRunning()) {
+            render();
+        }
+
+    }
+
+    public void render() {
+        BufferStrategy bs = this.getBufferStrategy();
+        if (bs == null) {
+            this.createBufferStrategy(3);
+            return;
+        }
+
+        final Graphics g = bs.getDrawGraphics();
+
+        mainHandler.render(g);
+
+        //background
+        g.setColor(Color.red);
+        g.fillRect(0, 0, width, height);
+
+        g.dispose();
+        bs.show();
     }
 
     public Window getGameWindow() {
@@ -57,6 +87,14 @@ public class Game extends Canvas implements Runnable{
 
     public Handler getMainHandler() {
         return mainHandler;
+    }
+
+    public int getWindowWidth() {
+        return width;
+    }
+
+    public int getWindowHeight() {
+         return height;
     }
 
 }
