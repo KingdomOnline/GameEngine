@@ -2,6 +2,7 @@ package me.flaymed.engine;
 
 import me.flaymed.engine.enums.GameState;
 import me.flaymed.engine.handler.Handler;
+import me.flaymed.engine.menu.Menu;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -23,6 +24,8 @@ public class Game extends Canvas implements Runnable{
         this.mainHandler = new Handler();
         this.width = width;
         this.height = height;
+
+
     }
 
     public synchronized void start() {

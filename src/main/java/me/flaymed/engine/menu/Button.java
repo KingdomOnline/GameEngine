@@ -3,12 +3,13 @@ package me.flaymed.engine.menu;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
+import me.flaymed.engine.util.MouseManager;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public abstract class Button extends GameObject implements MouseListener {
+public abstract class Button extends GameObject implements MouseManager {
 
     private double width, height;
     //TODO: variable for image
@@ -53,26 +54,6 @@ public abstract class Button extends GameObject implements MouseListener {
 
         if (mx >= this.x && mx <= this.x + getWidth() && my >= this.y && my < this.y + getHeight())
             onClick();
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
 
     }
 }
