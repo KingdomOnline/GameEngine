@@ -14,7 +14,7 @@ public class Game extends Canvas implements Runnable{
     private Window gameWindow;
     private Thread windowThread;
     private GameState state;
-    private Handler mainHandler;
+    private static Handler mainHandler;
     private int width, height;
 
     public Game(String title, int width, int height) {
@@ -85,8 +85,11 @@ public class Game extends Canvas implements Runnable{
        return running;
     }
 
-    public Handler getMainHandler() {
-        return mainHandler;
+    public static Handler getMainHandler() {
+        if (mainHandler == null)
+            return new Handler();
+        else
+            return mainHandler;
     }
 
     public int getWindowWidth() {
