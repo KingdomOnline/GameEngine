@@ -6,12 +6,12 @@ import java.awt.Graphics;
 
 public abstract class GameObject {
 
-    protected double x, y;
+    protected int x, y;
     protected ObjectID id;
-    protected double xVel, yVel;
+    protected int xVel, yVel;
     protected boolean shown;
 
-    public GameObject(double x, double y, ObjectID id, boolean shown) {
+    public GameObject(int x, int y, ObjectID id, boolean shown) {
         this.x = x;
         this.y = y;
         this.id = id;
@@ -29,36 +29,36 @@ public abstract class GameObject {
 
     //Getter & Setter for x & y
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
     //Getter & Setter for xVel & yVel
 
-    public void setxVel(double xVel) {
+    public void setxVel(int xVel) {
         this.xVel = xVel;
     }
 
-    public double getxVel() {
+    public int getxVel() {
         return xVel;
     }
 
-    public void setyVel(double yVel) {
+    public void setyVel(int yVel) {
         this.yVel = yVel;
     }
-    public double getyVel() {
+    public int getyVel() {
         return yVel;
     }
 
@@ -66,6 +66,13 @@ public abstract class GameObject {
 
     public void setShown(boolean shown) {
         this.shown = shown;
+    }
+
+    public void toggleShown() {
+        if (isShown())
+            this.shown = false;
+        else
+            this.shown = true;
     }
 
     public boolean isShown() {

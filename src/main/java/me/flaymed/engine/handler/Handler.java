@@ -20,7 +20,8 @@ public class Handler {
 
     public void render(Graphics g) {
         for (GameObject object : objects) {
-            object.render(g);
+            if (object.isShown())
+                object.render(g);
         }
     }
 

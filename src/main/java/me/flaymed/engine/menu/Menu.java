@@ -1,46 +1,46 @@
 package me.flaymed.engine.menu;
 
+import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
-import me.flaymed.engine.util.KeyManager;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Menu extends GameObject implements KeyManager {
+public abstract class Menu extends GameObject {
 
-    private double width, height;
+    private int width, height;
     private int keycode;
     private Set<Button> buttons;
 
-    public Menu(double x, double y, double width, double height, int keycode, Class<? extends Button>... buttons) {
-        super(x, y, ObjectID.Menu, false);
+    public Menu(int x, int  y, int width, int height, int keycode, Class<? extends Button>... buttons) {
+        super(x, y, ObjectID.Menu, true);
 
         this.width = width;
         this.height = height;
         this.keycode = keycode;
 
+        Game.getMainHandler().addObject(this);
+
         setUpButtons(buttons);
     }
 
+    public void buttonPressed(KeyEvent e) {
+        if (e.getKeyCode() == this.keycode)
+            toggled();
+    }
 
-    public abstract void toggledOn();
-
+    public abstract void toggled();
 
     @Override
     public void render(Graphics g) {
-
+        //TEMP
+        g.setColor(Color.white);
+        g.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int pressedKey = e.getKeyCode();
-
-        if (pressedKey == keycode)
-            toggledOn();
-    }
 
     private void setUpButtons(Class<? extends Button>... buttons) {
         Set<Button> buttonSet = new HashSet<>();

@@ -3,18 +3,16 @@ package me.flaymed.engine.menu;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
-import me.flaymed.engine.util.MouseManager;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public abstract class Button extends GameObject implements MouseManager {
+public abstract class Button extends GameObject {
 
-    private double width, height;
+    private int width, height;
     //TODO: variable for image
 
-    public Button(double x, double y, double width, double height) {
+    public Button(int x, int y, int width, int height) {
         super(x, y, ObjectID.Button, false);
 
         this.width = width;
@@ -33,6 +31,9 @@ public abstract class Button extends GameObject implements MouseManager {
     @Override
     public void render(Graphics g) {
 
+        g.setColor(Color.blue);
+        g.fillRect(this.x, this.y, this.width, this.height);
+
         //TODO: render the image set for this button
 
     }
@@ -47,7 +48,6 @@ public abstract class Button extends GameObject implements MouseManager {
 
     public abstract void onClick();
 
-    @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         int mx = mouseEvent.getX();
         int my = mouseEvent.getY();
