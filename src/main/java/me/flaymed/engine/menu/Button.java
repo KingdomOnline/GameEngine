@@ -13,13 +13,14 @@ public abstract class Button extends GameObject {
     //TODO: variable for image
 
     public Button(int x, int y, int width, int height) {
-        super(x, y, ObjectID.Button, false);
+        super(x, y, ObjectID.Button, true);
 
         this.width = width;
         this.height = height;
 
         //Your not creating a button before the Game therefore this should always return the mainHandler defined when Game was constructed.
         Game.getMainHandler().addObject(this);
+        Game.getButtons().add(this);
         //TODO: create an Image class for pulling the button off a sprite sheet.
     }
 

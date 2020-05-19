@@ -23,7 +23,6 @@ public abstract class Menu extends GameObject {
         this.keycode = keycode;
 
         Game.getMainHandler().addObject(this);
-
         setUpButtons(buttons);
     }
 
