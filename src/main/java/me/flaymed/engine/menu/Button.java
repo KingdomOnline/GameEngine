@@ -13,7 +13,7 @@ public abstract class Button extends GameObject {
     //TODO: variable for image
 
     public Button(int x, int y, int width, int height) {
-        super(x, y, ObjectID.Button, true);
+        super(x, y, ObjectID.Button, false);
 
         this.width = width;
         this.height = height;

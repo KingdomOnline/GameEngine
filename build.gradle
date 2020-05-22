@@ -8,9 +8,9 @@
 
 plugins {
     // Apply the java-library plugin to add support for Java Library
+    id 'java'
     id 'java-library'
 }
-
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -29,4 +29,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+}
+
+task kingsRoyale() {
+
 }

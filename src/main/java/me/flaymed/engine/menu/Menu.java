@@ -16,7 +16,7 @@ public abstract class Menu extends GameObject {
     private Set<Button> buttons;
 
     public Menu(int x, int  y, int width, int height, int keycode, Class<? extends Button>... buttons) {
-        super(x, y, ObjectID.Menu, true);
+        super(x, y, ObjectID.Menu, false);
 
         this.width = width;
         this.height = height;
