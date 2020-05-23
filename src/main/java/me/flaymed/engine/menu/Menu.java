@@ -62,4 +62,9 @@ public abstract class Menu extends GameObject {
         return buttons;
     }
 
+    @Override
+    public void tick() {
+        //You can override this if you need to use it, but this just cleans up any class that extends menu.
+    }
+
 }
