@@ -27,7 +27,7 @@ public abstract class Menu extends GameObject {
     }
 
     public void buttonPressed(KeyEvent e) {
-        if (e.getKeyCode() == this.keycode)
+        if (e.getKeyCode() == getKeycode())
             toggled();
     }
 
@@ -65,6 +65,18 @@ public abstract class Menu extends GameObject {
     @Override
     public void tick() {
         //You can override this if you need to use it, but this just cleans up any class that extends menu.
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getKeycode() {
+        return keycode;
     }
 
 }

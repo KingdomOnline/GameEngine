@@ -12,9 +12,14 @@ import java.util.Set;
 public class ShopItem extends GameObject {
 
     private Set<Button> buttons;
+    private String description;
+    private int cost;
 
-    public ShopItem(int x, int y, Class<? extends Button>... buttons) {
+    public ShopItem(int x, int y, String description, int cost, Class<? extends Button>... buttons) {
         super(x, y, ObjectID.Menu, false);
+
+        this.description = description;
+        this.cost = cost;
 
         setUpButtons(buttons);
     }
@@ -48,5 +53,13 @@ public class ShopItem extends GameObject {
 
         g.setColor(Color.green);
         g.fillRect(0, 0, 10, 10);
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
