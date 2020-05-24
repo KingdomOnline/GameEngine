@@ -27,7 +27,7 @@ public class Shop extends Menu {
         this.previousButton = new PreviousButton(this.getX() + 20, this.getY() - 95, 150, 75, this);
 
         //Buttons start 200 pixels in, 300 pixels down.
-        configureButtonPosition(200, 300);
+        listButtonsVertically(200, 300);
     }
 
     @Override

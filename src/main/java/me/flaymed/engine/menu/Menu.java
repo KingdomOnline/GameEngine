@@ -14,6 +14,12 @@ import java.util.Set;
 
 public abstract class Menu extends GameObject {
 
+    int BUTTONS_PER_PAGE = 5;
+    int buttonCount;
+
+    //Space between buttons in pixels
+    int offset = 20;
+
     private int width, height;
     private int keycode;
     private LinkedList<Button> buttons;
@@ -66,34 +72,61 @@ public abstract class Menu extends GameObject {
      * @param x || x for where the buttons should start being listed
      * @param y || y for where the buttons should start being listed
      */
-    public void configureButtonPosition(int x, int y) {
-
-        int BUTTONS_PER_PAGE = 5;
+    public void listButtonsVertically(int x, int y) {
         //start with the first button
-        int buttonCount = 1;
-
-        //Space between buttons in pixels
-        int offset = 20;
+        this.buttonCount = 1;
 
         //New Y for button
         int buttonY;
 
         for (int i = 0; i < this.buttons.size(); i++) {
-
             Button button = this.buttons.get(i);
-
-            if (buttonCount >= BUTTONS_PER_PAGE)
-                buttonCount = 1;
-
             Button prevButton = this.buttons.get(i - 1);
 
+            if (this.buttonCount >= BUTTONS_PER_PAGE)
+                this.buttonCount = 1;
 
             buttonY =  (prevButton.getY() + prevButton.getHeight()) + offset;
             button.setY(buttonY);
+            //Buttons have a uniform X
+            button.setX(x);
 
-            if (buttonCount == 1)
+            if (this.buttonCount == 1)
                 button.setY(y);
 
+            this.buttonCount++;
+        }
+
+    }
+
+    /**
+     *
+     * @param x || x for where buttons should start being listed
+     * @param y || y for where buttons should start being listed
+     */
+    public void listButtonsHorizontally(int x, int y) {
+        //start with the first button
+        this.buttonCount = 1;
+
+        //New X for button
+        int buttonX;
+
+        for (int i = 0; i < getButtons().size(); i++) {
+            Button button = getButtons().get(i);
+            Button prevButton = getButtons().get(i - 1);
+
+            if (this.buttonCount >= BUTTONS_PER_PAGE)
+                this.buttonCount = 1;
+
+            buttonX = (prevButton.getX() + prevButton.getWidth()) + offset;
+            button.setX(buttonX);
+            //Buttons will have uniform y
+            button.setY(y);
+
+            if (this.buttonCount == 1)
+                button.setX(x);
+
+            this.buttonCount++;
         }
 
     }
