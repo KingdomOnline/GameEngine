@@ -3,7 +3,7 @@ package me.flaymed.engine.menu.shop;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
 
-import java.util.Set;
+import java.util.LinkedList;
 
 public class Shop extends Menu {
 
@@ -26,6 +26,8 @@ public class Shop extends Menu {
         this.nextButton = new NextButton(this.getWidth() - 170, this.getHeight() - 95, 150, 75, this);
         this.previousButton = new PreviousButton(this.getX() + 20, this.getY() - 95, 150, 75, this);
 
+        //Buttons start 200 pixels in, 300 pixels down.
+        configureButtonPosition(200, 300);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class Shop extends Menu {
 
         toggleShown();
 
-        Set<Button> buttons = getButtons();
+        LinkedList<Button> buttons = getButtons();
 
         for (Button button : buttons) {
             buttonCount++;

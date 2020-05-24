@@ -4,16 +4,19 @@ import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public abstract class Menu extends GameObject {
 
     private int width, height;
     private int keycode;
-    private Set<Button> buttons;
+    private LinkedList<Button> buttons;
 
     public Menu(int x, int  y, int width, int height, int keycode, Class<? extends Button>... buttons) {
         super(x, y, ObjectID.Menu, false);
@@ -42,7 +45,7 @@ public abstract class Menu extends GameObject {
 
 
     private void setUpButtons(Class<? extends Button>... buttons) {
-        Set<Button> buttonSet = new HashSet<>();
+        LinkedList<Button> buttonSet = new LinkedList<>();
         for (Class<? extends Button> button : buttons) {
             try {
 
@@ -58,7 +61,44 @@ public abstract class Menu extends GameObject {
 
     }
 
-    public Set<Button> getButtons() {
+    /**
+     * This method assumes the buttons should be in a list!!!
+     * @param x || x for where the buttons should start being listed
+     * @param y || y for where the buttons should start being listed
+     */
+    public void configureButtonPosition(int x, int y) {
+
+        int BUTTONS_PER_PAGE = 5;
+        //start with the first button
+        int buttonCount = 1;
+
+        //Space between buttons in pixels
+        int offset = 20;
+
+        //New Y for button
+        int buttonY;
+
+        for (int i = 0; i < this.buttons.size(); i++) {
+
+            Button button = this.buttons.get(i);
+
+            if (buttonCount >= BUTTONS_PER_PAGE)
+                buttonCount = 1;
+
+            Button prevButton = this.buttons.get(i - 1);
+
+
+            buttonY =  (prevButton.getY() + prevButton.getHeight()) + offset;
+            button.setY(buttonY);
+
+            if (buttonCount == 1)
+                button.setY(y);
+
+        }
+
+    }
+
+    public LinkedList<Button> getButtons() {
         return buttons;
     }
 

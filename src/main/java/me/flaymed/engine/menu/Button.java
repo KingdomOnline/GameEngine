@@ -3,9 +3,8 @@ package me.flaymed.engine.menu;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
-
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.Graphics;
+import java.awt.Color;
 
 public abstract class Button extends GameObject {
 
@@ -39,22 +38,14 @@ public abstract class Button extends GameObject {
 
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
     public abstract void onClick();
 
-    public void mouseClicked(MouseEvent mouseEvent) {
-        int mx = mouseEvent.getX();
-        int my = mouseEvent.getY();
-
-        if (mx >= this.x && mx <= this.x + getWidth() && my >= this.y && my < this.y + getHeight())
-            onClick();
-
-    }
 }
