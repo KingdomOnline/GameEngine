@@ -2,7 +2,6 @@ package me.flaymed.engine.menu.shop;
 
 import me.flaymed.engine.Game;
 import me.flaymed.engine.menu.Button;
-
 import java.util.List;
 
 public class ShopButton extends Button {

@@ -3,14 +3,9 @@ package me.flaymed.engine.menu;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 public abstract class Menu extends GameObject {
 

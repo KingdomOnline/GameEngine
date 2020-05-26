@@ -6,7 +6,6 @@ import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
 import me.flaymed.engine.util.KeyInput;
 import me.flaymed.engine.util.MouseInput;
-
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Color;

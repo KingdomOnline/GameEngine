@@ -2,7 +2,6 @@ package me.flaymed.engine.menu.shop;
 
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
-
 import java.util.LinkedList;
 
 public class Shop extends Menu {
