@@ -74,18 +74,20 @@ public abstract class Menu extends GameObject {
 
         for (int i = 0; i < this.buttons.size(); i++) {
             Button button = this.buttons.get(i);
-            Button prevButton = this.buttons.get(i - 1);
 
             if (this.buttonCount >= BUTTONS_PER_PAGE)
                 this.buttonCount = 1;
 
-            buttonY =  (prevButton.getY() + prevButton.getHeight()) + offset;
+            if (this.buttonCount == 1)
+                buttonY = y;
+            else {
+                Button prevButton = this.buttons.get(i - 1);
+                buttonY =  (prevButton.getY() + prevButton.getHeight()) + offset;
+            }
+
             button.setY(buttonY);
             //Buttons have a uniform X
             button.setX(x);
-
-            if (this.buttonCount == 1)
-                button.setY(y);
 
             this.buttonCount++;
         }
@@ -107,18 +109,21 @@ public abstract class Menu extends GameObject {
 
         for (int i = 0; i < getButtons().size(); i++) {
             Button button = getButtons().get(i);
-            Button prevButton = getButtons().get(i - 1);
 
             if (this.buttonCount >= BUTTONS_PER_PAGE)
                 this.buttonCount = 1;
 
-            buttonX = (prevButton.getX() + prevButton.getWidth()) + offset;
+
+            if (this.buttonCount == 1)
+                buttonX = x;
+            else {
+                Button prevButton = getButtons().get(i - 1);
+                buttonX = (prevButton.getX() + prevButton.getWidth()) + offset;
+            }
+
             button.setX(buttonX);
             //Buttons will have uniform y
             button.setY(y);
-
-            if (this.buttonCount == 1)
-                button.setX(x);
 
             this.buttonCount++;
         }
