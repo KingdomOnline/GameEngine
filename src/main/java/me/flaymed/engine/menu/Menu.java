@@ -68,6 +68,7 @@ public abstract class Menu extends GameObject {
      * This method assumes the buttons should be in a list!!!
      * @param x || x for where the buttons should start being listed
      * @param y || y for where the buttons should start being listed
+     * @param offset || distance in pixels between buttons
      */
     public void listButtonsVertically(int x, int y, int offset) {
         //start with the first button
@@ -100,6 +101,7 @@ public abstract class Menu extends GameObject {
      *
      * @param x || x for where buttons should start being listed
      * @param y || y for where buttons should start being listed
+     * @param offset || distance in pixels between buttons
      */
     public void listButtonsHorizontally(int x, int y, int offset) {
         //start with the first button
