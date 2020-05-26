@@ -26,8 +26,8 @@ public class Shop extends Menu {
         this.nextButton = new NextButton(this.getWidth() - 170, this.getHeight() - 95, 150, 75, this);
         this.previousButton = new PreviousButton(this.getX() + 20, this.getY() - 95, 150, 75, this);
 
-        //Buttons start 200 pixels in, 300 pixels down.
-        listButtonsVertically(200, 300);
+        //Buttons start 200 pixels in, 300 pixels down with a 20 pixel gap between buttons.
+        listButtonsVertically(200, 300, 20);
     }
 
     @Override

@@ -17,9 +17,6 @@ public abstract class Menu extends GameObject {
     int BUTTONS_PER_PAGE = 5;
     int buttonCount;
 
-    //Space between buttons in pixels
-    int offset = 20;
-
     private int width, height;
     private int keycode;
     private LinkedList<Button> buttons;
@@ -72,7 +69,7 @@ public abstract class Menu extends GameObject {
      * @param x || x for where the buttons should start being listed
      * @param y || y for where the buttons should start being listed
      */
-    public void listButtonsVertically(int x, int y) {
+    public void listButtonsVertically(int x, int y, int offset) {
         //start with the first button
         this.buttonCount = 1;
 
@@ -104,7 +101,7 @@ public abstract class Menu extends GameObject {
      * @param x || x for where buttons should start being listed
      * @param y || y for where buttons should start being listed
      */
-    public void listButtonsHorizontally(int x, int y) {
+    public void listButtonsHorizontally(int x, int y, int offset) {
         //start with the first button
         this.buttonCount = 1;
 
