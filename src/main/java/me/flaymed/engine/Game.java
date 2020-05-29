@@ -13,18 +13,23 @@ import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas {
 
     private boolean running = false;
     private Window gameWindow;
-    private Thread windowThread;
     private GameState state;
     private static Handler mainHandler;
     private int width, height;
     private static List<Menu> menus;
     private static List<Button> buttons;
+    private Thread tickThread;
+    private Thread renderThread;
 
     public Game(String title, int width, int height) {
+
+        setUpListeners();
+        registerThreads();
+
         this.gameWindow = new Window(title, this);
         this.state = GameState.Menu;
         this.mainHandler = new Handler();
@@ -32,33 +37,72 @@ public class Game extends Canvas implements Runnable{
         this.height = height;
         this.menus = new LinkedList<>();
         this.buttons = new LinkedList<>();
-
-        setUpListeners();
     }
 
     public synchronized void start() {
+        tickThread.start();
+        renderThread.start();
         running = true;
-        windowThread = new Thread(this);
-        windowThread.start();
     }
 
     public synchronized void stop() {
         try {
             System.exit(0);
-            windowThread.join();
+            tickThread.join();
+            renderThread.join();
             running = false;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void run() {
-        //TODO: Add a basic gameloop for this (not player loop)
+    private void registerThreads() {
+        tickThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //Tick Loop
+                int frames = 0;
+                long lastTime = System.nanoTime();
+                double tickCount = 60.0;
+                double ns = 1000000000 / tickCount;//16666666.6667
+                double delta = 0;
+                long timer = System.currentTimeMillis();
+                long now;
+                while (running) {
+                    now = System.nanoTime();
+                    delta += (now - lastTime) / ns;
 
-        while(isRunning()) {
-            render();
-        }
+//			System.out.println(String.format("last time: {%d} now:{%d} delta:{%g}",lastTime,now,delta));
+                    lastTime = now;
+                    while (delta >= 1) {
+                        tick();
+                        delta--;
+                    }
 
+                    if (running) {
+                        frames++;
+                    }
+                    if (System.currentTimeMillis() - timer > 1000) {
+                        timer += 1000;
+                        frames = 0;
+                    }
+                }
+                stop();
+            }
+        });
+
+        renderThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isRunning()) {
+                    render();
+                }
+            }
+        });
+    }
+
+    public void tick() {
+        mainHandler.tick();
     }
 
     public void render() {
@@ -71,7 +115,7 @@ public class Game extends Canvas implements Runnable{
         final Graphics g = bs.getDrawGraphics();
 
         //background
-        g.setColor(Color.red);
+        g.setColor(Color.GRAY);
         g.fillRect(0, 0, width, height);
 
         //render objects
