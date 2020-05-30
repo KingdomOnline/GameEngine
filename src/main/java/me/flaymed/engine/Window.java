@@ -21,12 +21,10 @@ public class Window {
         frame.setLocationRelativeTo(null);
         frame.add(game);
 
-
-        //requiered to set full screen on linux.
+        //required to set full screen on linux.
         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = graphics.getDefaultScreenDevice();
         device.setFullScreenWindow(frame);
-
 
         frame.setVisible(true);
         frame.setFocusable(true);

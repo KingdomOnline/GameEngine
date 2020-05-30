@@ -64,7 +64,7 @@ public class Game extends Canvas {
                 int frames = 0;
                 long lastTime = System.nanoTime();
                 double tickCount = 60.0;
-                double ns = 1000000000 / tickCount;//16666666.6667
+                double ns = 200000000 / tickCount;
                 double delta = 0;
                 long timer = System.currentTimeMillis();
                 long now;
