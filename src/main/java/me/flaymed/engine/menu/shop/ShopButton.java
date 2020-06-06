@@ -8,8 +8,8 @@ public class ShopButton extends Button {
 
     private ShopItem item;
 
-    public ShopButton(int x, int y, int width, int height, ShopItem item) {
-        super(x, y, width, height);
+    public ShopButton(int x, int y, int width, int height, ShopItem item, String itemName) {
+        super(x, y, width, height, itemName);
 
         this.item = item;
     }

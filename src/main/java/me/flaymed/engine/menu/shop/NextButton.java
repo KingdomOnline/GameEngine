@@ -7,7 +7,7 @@ public class NextButton extends Button {
     private Shop shop;
 
     public NextButton(int x, int y, int width, int height, Shop shop) {
-        super(x, y, width, height);
+        super(x, y, width, height, "Next");
 
         this.shop = shop;
     }

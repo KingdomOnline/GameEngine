@@ -88,6 +88,7 @@ public abstract class Menu extends GameObject {
             button.setY(buttonY);
             //Buttons have a uniform X
             button.setX(x);
+            button.refactorTextItem(button.getX(), button.getY());
 
             this.buttonCount++;
         }
@@ -124,6 +125,7 @@ public abstract class Menu extends GameObject {
             button.setX(buttonX);
             //Buttons will have uniform y
             button.setY(y);
+            button.refactorTextItem(button.getX(), button.getY());
 
             this.buttonCount++;
         }
