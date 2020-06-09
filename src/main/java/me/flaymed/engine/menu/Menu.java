@@ -59,6 +59,14 @@ public abstract class Menu extends GameObject {
 
     }
 
+    public void centerMenuHorizontally(int pageWidth) {
+        setX((pageWidth/2) - (getWidth()/2));
+    }
+
+    public void centerMenuVertically(int pageHeight) {
+        setY((pageHeight/2) - (getHeight()/2));
+    }
+
     /**
      * This method assumes the buttons should be in a list!!!
      * @param x || x for where the buttons should start being listed
