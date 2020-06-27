@@ -5,7 +5,7 @@ import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import java.awt.Graphics;
 
-public class LivingEntity extends GameObject {
+public abstract class LivingEntity extends GameObject {
 
     private int width,height;
     private int mx, my;
@@ -24,6 +24,11 @@ public class LivingEntity extends GameObject {
         if (var >= max) return var = max;
         else if (var <= min) return var = min;
         else return var;
+    }
+
+    public void moveIfNotMoving(int mx, int my) {
+        if (getxVel() == 0 && getyVel() == 0)
+            move(mx, my);
     }
 
     public void move(int mx, int my) {
@@ -51,14 +56,19 @@ public class LivingEntity extends GameObject {
 
     @Override
     public void tick() {
+        if (my == y)
+            yVel = 0;
 
+        if (mx == x)
+            xVel = 0;
+
+        x += xVel;
+        y += yVel;
+
+        x = clamp(x, 0, Game.getInstance().getWindowWidth() - width);
+        y = clamp(y, 0, Game.getInstance().getWindowHeight() - height);
     }
-
-    @Override
-    public void render(Graphics g) {
-
-    }
-
+    
     public void addHealth(double health) {
         this.hp += health;
     }

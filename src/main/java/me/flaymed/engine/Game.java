@@ -24,6 +24,7 @@ public class Game extends Canvas {
     private static List<Button> buttons;
     private Thread tickThread;
     private Thread renderThread;
+    private static Game instance = null;
 
     public Game(String title, int width, int height) {
 
@@ -37,6 +38,13 @@ public class Game extends Canvas {
         this.height = height;
         this.menus = new LinkedList<>();
         this.buttons = new LinkedList<>();
+        instance = this;
+    }
+
+    //This method will never be called before the game is constructed, therefor we don't need a null pointer check.
+    //Makes no sense to make a new game instance if it's null because we cannot create a new game without knowing the size or title
+    public static Game getInstance() {
+        return instance;
     }
 
     public synchronized void start() {
