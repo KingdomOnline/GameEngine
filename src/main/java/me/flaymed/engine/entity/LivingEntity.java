@@ -3,7 +3,6 @@ package me.flaymed.engine.entity;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.enums.ObjectID;
 import me.flaymed.engine.handler.GameObject;
-import java.awt.Graphics;
 
 public abstract class LivingEntity extends GameObject {
 
@@ -12,10 +11,12 @@ public abstract class LivingEntity extends GameObject {
     private double MAX_HP;
     private double hp;
 
-    public LivingEntity(int x, int y, int MAX_HP, int hp) {
+    public LivingEntity(int x, int y, int MAX_HP, int hp, int width, int height) {
         super(x, y, ObjectID.LivingEntity, false);
         this.MAX_HP = MAX_HP;
         this.hp = hp;
+        this.width = width;
+        this.height = height;
 
         Game.getMainHandler().addObject(this);
     }
@@ -32,11 +33,10 @@ public abstract class LivingEntity extends GameObject {
     }
 
     public void move(int mx, int my) {
-
-        int currentXCenter = (int) (x  + (0.5 * width));
-        int currentYCenter = (int) (y + (0.5 * height));
-        int newXCenter = (int) (mx - (0.5 * width));
-        int newYCenter = (int) (my - (0.5 * height));
+        int currentXCenter = (int) (x  + (0.5 * getWidth()));
+        int currentYCenter = (int) (y + (0.5 * getHeight()));
+        int newXCenter = (int) (mx - (0.5 * getWidth()));
+        int newYCenter = (int) (my - (0.5 * getHeight()));
 
         if (mx > currentXCenter)
             xVel = 1;
@@ -64,11 +64,18 @@ public abstract class LivingEntity extends GameObject {
 
         x += xVel;
         y += yVel;
-
-        x = clamp(x, 0, Game.getInstance().getWindowWidth() - width);
-        y = clamp(y, 0, Game.getInstance().getWindowHeight() - height);
+        x = clamp(x, 0, Game.getInstance().getWindowWidth() - getWidth());
+        y = clamp(y, 0, Game.getInstance().getWindowHeight() - getHeight());
     }
-    
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void addHealth(double health) {
         this.hp += health;
     }
