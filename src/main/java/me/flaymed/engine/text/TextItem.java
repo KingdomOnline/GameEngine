@@ -1,6 +1,6 @@
 package me.flaymed.engine.text;
 
-import me.flaymed.engine.enums.ObjectID;
+import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 
 import java.awt.*;

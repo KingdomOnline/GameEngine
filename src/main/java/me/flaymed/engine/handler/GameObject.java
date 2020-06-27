@@ -1,7 +1,5 @@
 package me.flaymed.engine.handler;
 
-import me.flaymed.engine.enums.ObjectID;
-
 import java.awt.Graphics;
 
 public abstract class GameObject {

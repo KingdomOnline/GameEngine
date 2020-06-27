@@ -1,11 +1,10 @@
-package me.flaymed.engine.enums;
+package me.flaymed.engine.handler;
 
 public enum ObjectID {
 
     Text(),
     Button(),
     Menu(),
-    Player(),
     LivingEntity(),
     Building();
 

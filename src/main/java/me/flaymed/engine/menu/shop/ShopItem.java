@@ -1,6 +1,6 @@
 package me.flaymed.engine.menu.shop;
 
-import me.flaymed.engine.enums.ObjectID;
+import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.menu.Button;
 

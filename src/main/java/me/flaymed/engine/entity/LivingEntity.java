@@ -1,7 +1,7 @@
 package me.flaymed.engine.entity;
 
 import me.flaymed.engine.Game;
-import me.flaymed.engine.enums.ObjectID;
+import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 
 public abstract class LivingEntity extends GameObject {
@@ -20,6 +20,9 @@ public abstract class LivingEntity extends GameObject {
 
         Game.getMainHandler().addObject(this);
     }
+
+    abstract String getName();
+    abstract EntityType getEntityType();
 
     private int clamp(int var, int min, int max) {
         if (var >= max) return var = max;

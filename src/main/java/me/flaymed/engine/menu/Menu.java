@@ -1,7 +1,7 @@
 package me.flaymed.engine.menu;
 
 import me.flaymed.engine.Game;
-import me.flaymed.engine.enums.ObjectID;
+import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import java.awt.*;
 import java.awt.event.KeyEvent;

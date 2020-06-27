@@ -1,6 +1,5 @@
 package me.flaymed.engine;
 
-import me.flaymed.engine.enums.GameState;
 import me.flaymed.engine.handler.Handler;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
