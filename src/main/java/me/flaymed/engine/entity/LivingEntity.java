@@ -9,9 +9,13 @@ public class LivingEntity extends GameObject {
 
     private int width,height;
     private int mx, my;
+    private double MAX_HP;
+    private double hp;
 
-    public LivingEntity(int x, int y) {
+    public LivingEntity(int x, int y, int MAX_HP, int hp) {
         super(x, y, ObjectID.LivingEntity, false);
+        this.MAX_HP = MAX_HP;
+        this.hp = hp;
 
         Game.getMainHandler().addObject(this);
     }
@@ -47,11 +51,42 @@ public class LivingEntity extends GameObject {
 
     @Override
     public void tick() {
-        
+
     }
 
     @Override
     public void render(Graphics g) {
 
     }
+
+    public void addHealth(double health) {
+        this.hp += health;
+    }
+
+    public void subtractHealth(double health) {
+        this.hp -= health;
+    }
+
+    public double getMAX_HP() {
+        return MAX_HP;
+    }
+
+    public double getHp() {
+        return hp;
+    }
+
+    public int getHpAsInteger() {
+        return (int) getHp();
+    }
+
+    private void kill() {
+        //Doesn't remove the object from game object lists so we can "revive" entities in the future.
+        setShown(false);
+    }
+
+    public boolean isAlive() {
+        return getHp() <= 0;
+    }
+
+
 }
