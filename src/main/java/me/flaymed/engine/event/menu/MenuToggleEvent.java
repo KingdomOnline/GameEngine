@@ -7,7 +7,7 @@ import me.flaymed.engine.menu.Menu;
 public class MenuToggleEvent extends Event implements Cancellable {
 
     private Menu menu;
-    private boolean cancelled;
+    private boolean cancelled = false;
 
     public MenuToggleEvent(Menu menu) {
         this.menu = menu;
