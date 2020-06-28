@@ -1,8 +1,6 @@
 package me.flaymed.engine.util;
 
 import me.flaymed.engine.Game;
-import me.flaymed.engine.event.EventManager;
-import me.flaymed.engine.event.menu.MenuToggleEvent;
 import me.flaymed.engine.menu.Menu;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
