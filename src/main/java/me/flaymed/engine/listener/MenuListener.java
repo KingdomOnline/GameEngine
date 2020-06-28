@@ -13,6 +13,7 @@ public class MenuListener extends Listener {
     @EventHandler
     public void menuToggleEvent(MenuToggleEvent e) {
         System.out.println("It works!");
+        e.setCancelled(true);
     }
 
 }

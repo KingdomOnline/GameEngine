@@ -31,8 +31,8 @@ public abstract class Menu extends GameObject {
 
     public void buttonPressed(KeyEvent e) {
         if (e.getKeyCode() == getKeycode()) {
-            EventManager.callEvent(new MenuToggleEvent(this));
-            toggled();
+            if (EventManager.callEvent(new MenuToggleEvent(this)))
+                toggled();
         }
     }
 

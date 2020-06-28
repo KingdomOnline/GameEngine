@@ -13,11 +13,7 @@ public class EventManager {
         listeners.add(listener);
     }
 
-    public static void callEvent(Event event) {
-        if (event instanceof Cancellable)
-            if (((Cancellable) event).isCancelled())
-                return;
-
+    public static boolean callEvent(Event event) {
         for (Listener listener : listeners) {
             Method[] methods = listener.getClass().getDeclaredMethods();
             for (Method method : methods) {
@@ -39,7 +35,11 @@ public class EventManager {
                 }
             }
         }
-    }
 
+        if (event instanceof Cancellable) if (((Cancellable) event).isCancelled()) return false;
+
+        return true;
+
+    }
 
 }
