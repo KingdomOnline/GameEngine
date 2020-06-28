@@ -1,6 +1,8 @@
 package me.flaymed.engine.menu;
 
 import me.flaymed.engine.Game;
+import me.flaymed.engine.event.EventManager;
+import me.flaymed.engine.event.menu.MenuToggleEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import java.awt.*;
@@ -28,8 +30,10 @@ public abstract class Menu extends GameObject {
     }
 
     public void buttonPressed(KeyEvent e) {
-        if (e.getKeyCode() == getKeycode())
+        if (e.getKeyCode() == getKeycode()) {
+            EventManager.callEvent(new MenuToggleEvent(this));
             toggled();
+        }
     }
 
     public abstract void toggled();

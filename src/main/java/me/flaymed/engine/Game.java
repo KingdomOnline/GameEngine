@@ -1,6 +1,7 @@
 package me.flaymed.engine;
 
 import me.flaymed.engine.handler.Handler;
+import me.flaymed.engine.listener.MenuListener;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
 import me.flaymed.engine.util.KeyInput;
@@ -30,9 +31,9 @@ public class Game extends Canvas {
         setUpListeners();
         registerThreads();
 
+        this.mainHandler = new Handler();
         this.gameWindow = new Window(title, this);
         this.state = GameState.Menu;
-        this.mainHandler = new Handler();
         this.width = width;
         this.height = height;
         this.menus = new LinkedList<>();
@@ -50,6 +51,7 @@ public class Game extends Canvas {
         tickThread.start();
         renderThread.start();
         running = true;
+        System.out.println("Game started!");
     }
 
     public synchronized void stop() {
@@ -135,6 +137,7 @@ public class Game extends Canvas {
     private void setUpListeners() {
         this.addKeyListener(new KeyInput());
         this.addMouseListener(new MouseInput());
+        new MenuListener();
     }
 
     public Window getGameWindow() {
