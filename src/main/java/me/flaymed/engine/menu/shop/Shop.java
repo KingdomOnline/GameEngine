@@ -2,6 +2,8 @@ package me.flaymed.engine.menu.shop;
 
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
+
+import java.awt.*;
 import java.util.LinkedList;
 
 public class Shop extends Menu {
@@ -16,8 +18,8 @@ public class Shop extends Menu {
 
     private int buttonCount;
 
-    public Shop(int x, int y, int width, int height, int keycode, Class<? extends Button>... buttons) {
-        super(x, y, width, height, keycode, buttons);
+    public Shop(int x, int y, int width, int height, int keycode, Color color, Class<? extends Button>... buttons) {
+        super(x, y, width, height, keycode, color, buttons);
 
         MAX_PAGES = (int) Math.ceil(getButtons().size()/buttonPerPage);
 

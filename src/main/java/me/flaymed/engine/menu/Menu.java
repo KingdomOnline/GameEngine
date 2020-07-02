@@ -1,8 +1,6 @@
 package me.flaymed.engine.menu;
 
 import me.flaymed.engine.Game;
-import me.flaymed.engine.event.EventManager;
-import me.flaymed.engine.event.menu.MenuToggleEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import java.awt.*;
@@ -17,13 +15,15 @@ public abstract class Menu extends GameObject {
     private int width, height;
     private int keycode;
     private LinkedList<Button> buttons;
+    private Color color;
 
-    public Menu(int x, int  y, int width, int height, int keycode, Class<? extends Button>... buttons) {
+    public Menu(int x, int  y, int width, int height, int keycode, Color background, Class<? extends Button>... buttons) {
         super(x, y, ObjectID.Menu, false);
 
         this.width = width;
         this.height = height;
         this.keycode = keycode;
+        this.color = background;
 
         Game.getMainHandler().addObject(this);
         setUpButtons(buttons);
@@ -31,17 +31,21 @@ public abstract class Menu extends GameObject {
 
     public void buttonPressed(KeyEvent e) {
         if (e.getKeyCode() == getKeycode()) {
-            if (EventManager.callEvent(new MenuToggleEvent(this)))
-                toggled();
+            toggleShown();
+            for (Button button : getButtons()) {
+                button.toggleShown();
+            }
+            toggled();
         }
     }
 
+    //Just for anything special you want to do when the menu toggles
     public abstract void toggled();
 
     @Override
     public void render(Graphics g) {
         //TEMP
-        g.setColor(Color.white);
+        g.setColor(this.color);
         g.fillRect(this.x, this.y, this.width, this.height);
     }
 
@@ -63,12 +67,12 @@ public abstract class Menu extends GameObject {
 
     }
 
-    public void centerMenuHorizontally(int pageWidth) {
-        setX((pageWidth/2) - (getWidth()/2));
+    public void centerMenuHorizontally() {
+        setX((Game.getInstance().getWindowWidth()/2) - (getWidth()/2));
     }
 
-    public void centerMenuVertically(int pageHeight) {
-        setY((pageHeight/2) - (getHeight()/2));
+    public void centerMenuVertically() {
+        setY((Game.getInstance().getWindowHeight()/2) - (getHeight()/2));
     }
 
     /**
