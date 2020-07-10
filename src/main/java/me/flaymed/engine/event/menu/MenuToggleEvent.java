@@ -7,12 +7,14 @@ import me.flaymed.engine.menu.Menu;
 public class MenuToggleEvent extends Event implements Cancellable {
 
     private Menu menu;
-    private boolean toggledTo;
     private boolean cancelled = false;
 
-    public MenuToggleEvent(Menu menu, boolean toggledTo) {
+    public MenuToggleEvent(Menu menu) {
         this.menu = menu;
-        this.toggledTo = toggledTo;
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 
     @Override

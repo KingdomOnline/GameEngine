@@ -36,7 +36,7 @@ public abstract class Menu extends GameObject {
     public void buttonPressed(KeyEvent e) {
         if (e.getKeyCode() == getKeycode()) {
             //Allows this event to be cancelled.
-            if (!EventManager.callEvent(new MenuToggleEvent(this, !isShown()))) return;
+            if (!EventManager.callEvent(new MenuToggleEvent(this))) return;
             toggleShown();
             for (Button button : getButtons()) {
                 button.toggleShown();
