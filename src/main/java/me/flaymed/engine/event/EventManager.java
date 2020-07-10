@@ -19,7 +19,7 @@ public class EventManager {
             for (Method method : methods) {
                 if (method.getAnnotation(EventHandler.class) == null)
                     continue;
-                if (method.getParameterCount() > 1)
+                if (method.getParameterCount() != 1)
                     continue;
                 else{
                     Parameter[] parameters = method.getParameters();
