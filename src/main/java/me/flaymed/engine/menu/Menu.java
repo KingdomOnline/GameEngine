@@ -33,15 +33,20 @@ public abstract class Menu extends GameObject {
         setUpButtons(buttons);
     }
 
+    @Override
+    public void toggleShown() {
+        for (Button button : getButtons()) {
+            button.toggleShown();
+        }
+    }
+
     public void buttonPressed(KeyEvent e) {
         if (e.getKeyCode() == getKeycode()) {
-            //Allows this event to be cancelled.
-            if (!EventManager.callEvent(new MenuToggleEvent(this))) return;
+
             toggleShown();
-            for (Button button : getButtons()) {
-                button.toggleShown();
-            }
-            toggled();
+            //Allows this event to be cancelled.
+            if (!EventManager.callEvent(new MenuToggleEvent(this))) toggleShown();
+            if (isShown()) toggled();
         }
     }
 
