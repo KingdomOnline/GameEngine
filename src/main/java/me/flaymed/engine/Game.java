@@ -1,7 +1,7 @@
 package me.flaymed.engine;
 
 import me.flaymed.engine.handler.Handler;
-import me.flaymed.engine.listener.MenuToggleListener;
+import me.flaymed.engine.listeners.MenuToggleListener;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
 import me.flaymed.engine.util.KeyInput;

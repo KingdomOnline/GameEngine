@@ -1,4 +1,4 @@
-package me.flaymed.engine.listener;
+package me.flaymed.engine.listeners;
 
 import me.flaymed.engine.event.EventHandler;
 import me.flaymed.engine.event.Listener;
@@ -8,6 +8,6 @@ public class MenuToggleListener extends Listener {
 
     @EventHandler
     public void menuToggled(MenuToggleEvent e) {
-        System.out.println(e.getMenu().isShown());
+        //I mean we could figure stuff to do with this later, can always delete it.
     }
 }
