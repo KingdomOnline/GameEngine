@@ -35,6 +35,7 @@ public abstract class Menu extends GameObject {
 
     @Override
     public void toggleShown() {
+        setShown(!isShown());
         for (Button button : getButtons()) {
             button.toggleShown();
         }
