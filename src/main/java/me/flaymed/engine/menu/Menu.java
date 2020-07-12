@@ -35,20 +35,19 @@ public abstract class Menu extends GameObject {
 
     @Override
     public void toggleShown() {
-        setShown(!isShown());
+        if (isShown()) setShown(false);
+        else setShown(true);
+
         for (Button button : getButtons()) {
             button.toggleShown();
         }
     }
 
     public void buttonPressed(KeyEvent e) {
-        if (e.getKeyCode() == getKeycode()) {
-
-            toggleShown();
-            //Allows this event to be cancelled.
-            if (!EventManager.callEvent(new MenuToggleEvent(this))) toggleShown();
-            if (isShown()) toggled();
-        }
+        toggleShown();
+        //Allows this event to be cancelled.
+        if (!EventManager.callEvent(new MenuToggleEvent(this))) toggleShown();
+        if (isShown()) toggled();
     }
 
     //Just for anything special you want to do when the menu toggles
