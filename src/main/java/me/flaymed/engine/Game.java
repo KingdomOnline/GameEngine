@@ -1,6 +1,7 @@
 package me.flaymed.engine;
 
 import me.flaymed.engine.handler.Handler;
+import me.flaymed.engine.listeners.MenuRegisterListener;
 import me.flaymed.engine.listeners.MenuToggleListener;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
@@ -136,6 +137,7 @@ public class Game extends Canvas {
         this.addKeyListener(new KeyInput());
         this.addMouseListener(new MouseInput());
         new MenuToggleListener();
+        new MenuRegisterListener();
     }
 
     public Window getGameWindow() {

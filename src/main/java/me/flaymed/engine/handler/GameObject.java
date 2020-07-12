@@ -67,8 +67,7 @@ public abstract class GameObject {
     }
 
     public void toggleShown() {
-        if (isShown()) setShown(false);
-        else setShown(true);
+        setShown(!isShown());
     }
 
     public boolean isShown() {
