@@ -4,10 +4,9 @@ import me.flaymed.engine.Game;
 import me.flaymed.engine.menu.Button;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.List;
 
-public class MouseInput implements MouseListener, MouseMotionListener {
+public class MouseInput implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
@@ -39,15 +38,5 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        //TODO: Setup Logic for cursor hovering buildings.
     }
 }
