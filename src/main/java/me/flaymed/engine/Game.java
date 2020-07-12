@@ -6,9 +6,7 @@ import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
 import me.flaymed.engine.util.KeyInput;
 import me.flaymed.engine.util.MouseInput;
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 import java.util.List;
@@ -195,6 +193,10 @@ public class Game extends Canvas {
             buttons = new LinkedList<>();
 
         return buttons;
+    }
+
+    public Point getMousePositionOnScreen() {
+        return MouseInfo.getPointerInfo().getLocation();
     }
 
 }
