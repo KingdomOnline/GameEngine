@@ -1,14 +1,11 @@
 package me.flaymed.engine.menu;
 
 import me.flaymed.engine.Game;
-import me.flaymed.engine.event.Event;
-import me.flaymed.engine.event.EventHandler;
 import me.flaymed.engine.event.EventManager;
 import me.flaymed.engine.event.menu.MenuToggleEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 public abstract class Menu extends GameObject {
