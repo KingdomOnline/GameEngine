@@ -1,5 +1,7 @@
 package me.flaymed.engine;
 
+import me.flaymed.engine.event.EventManager;
+import me.flaymed.engine.event.menu.MenuRegisterEvent;
 import me.flaymed.engine.handler.Handler;
 import me.flaymed.engine.listeners.MenuRegisterListener;
 import me.flaymed.engine.listeners.MenuToggleListener;
@@ -172,6 +174,7 @@ public class Game extends Canvas {
     }
 
     public void addMenu(Menu menu) {
+        EventManager.callEvent(new MenuRegisterEvent(menu));
         this.menus.add(menu);
     }
 
