@@ -43,7 +43,7 @@ public abstract class Menu extends GameObject {
         }
     }
 
-    public void buttonPressed(KeyEvent e) {
+    public void buttonPressed() {
         toggleShown();
         //Allows this event to be cancelled.
         if (!EventManager.callEvent(new MenuToggleEvent(this))) toggleShown();

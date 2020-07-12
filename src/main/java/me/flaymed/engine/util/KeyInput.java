@@ -13,7 +13,7 @@ public class KeyInput extends KeyAdapter {
         List<Menu> menus = Game.getMenus();
 
         for (Menu menu : menus) {
-            if (e.getKeyCode() == menu.getKeycode()) menu.buttonPressed(e);
+            if (e.getKeyCode() == menu.getKeycode()) menu.buttonPressed();
         }
     }
 
