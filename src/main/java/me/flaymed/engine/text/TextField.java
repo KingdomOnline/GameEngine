@@ -1,11 +1,17 @@
 package me.flaymed.engine.text;
 
+import me.flaymed.engine.Game;
+import me.flaymed.engine.GameState;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.handler.ObjectID;
+import me.flaymed.engine.menu.Button;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
 
-public class TextField extends GameObject {
+public class TextField extends GameObject implements MouseListener {
 
     private String label;
     private int width, height;
@@ -75,5 +81,39 @@ public class TextField extends GameObject {
         for (int i = 0; i < getCharacters().length; i++) {
             g2.drawString(String.valueOf(getCharacters()[i]), getX() + getMargin() + (i * fontsize), getY());
         }
+    }
+
+    public void onClick() {
+        Game.getInstance().setState(GameState.TYPING);
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        int mx = mouseEvent.getX();
+        int my = mouseEvent.getY();
+
+        if (mx >= getX() && mx <= getX() + getWidth() && my >= getY() && my < getY() + getHeight() && isShown())
+            onClick();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
     }
 }
