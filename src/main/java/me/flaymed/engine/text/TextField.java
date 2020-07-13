@@ -30,6 +30,8 @@ public class TextField extends GameObject implements MouseListener {
         this.margin = margin;
 
         TextFieldManager.getInstance().addTextField(this);
+        Game.getInstance().addMouseListener(this);
+        Game.getInstance().getMainHandler().addObject(this);
     }
 
     public Color getColor() {
@@ -78,6 +80,7 @@ public class TextField extends GameObject implements MouseListener {
         g2.setFont(new Font(null, Font.PLAIN, fontsize));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.drawString(getLabel(), getX() - (fontsize * getLabel().length()) - margin, (float) (getY() + (0.5 * getWidth()) - (0.5 * fontsize)));
+        if (getCharacters() == null) return;
         for (int i = 0; i < getCharacters().length; i++) {
             g2.drawString(String.valueOf(getCharacters()[i]), getX() + getMargin() + (i * fontsize), getY());
         }

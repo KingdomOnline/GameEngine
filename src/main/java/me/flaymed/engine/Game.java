@@ -7,6 +7,7 @@ import me.flaymed.engine.listeners.MenuRegisterListener;
 import me.flaymed.engine.listeners.MenuToggleListener;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.menu.Menu;
+import me.flaymed.engine.text.TextFieldManager;
 import me.flaymed.engine.util.KeyInput;
 import me.flaymed.engine.util.MouseInput;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class Game extends Canvas {
 
         setUpListeners();
         registerThreads();
+        new TextFieldManager();
 
         this.mainHandler = new Handler();
         this.gameWindow = new Window(title, this);
