@@ -5,6 +5,7 @@ import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.text.TextItem;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public abstract class Button extends GameObject {
     private int width, height;
     private TextItem textItem;
     private ArrayList<String> text = new ArrayList<String>();
+    private Menu menu;
 
     public Button(int x, int y, int width, int height, String name) {
         super(x, y, ObjectID.Button, false);
@@ -42,6 +44,14 @@ public abstract class Button extends GameObject {
 
         //TODO: render the image set for this button
 
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 
     public int getWidth() {

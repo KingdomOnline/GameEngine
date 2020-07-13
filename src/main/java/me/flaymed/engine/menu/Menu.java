@@ -62,6 +62,7 @@ public abstract class Menu extends GameObject {
             try {
 
                 Button newButton = button.newInstance();
+                newButton.setMenu(this);
                 buttonSet.add(newButton);
 
             } catch (InstantiationException | IllegalAccessException e) {
