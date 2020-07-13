@@ -14,7 +14,7 @@ public class Handler {
 
     public void tick() {
         for (GameObject object : objects) {
-            object.tick();
+            if (object.isShown()) object.tick();
         }
     }
 
