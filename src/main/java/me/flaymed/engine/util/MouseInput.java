@@ -1,6 +1,7 @@
 package me.flaymed.engine.util;
 
 import me.flaymed.engine.Game;
+import me.flaymed.engine.GameState;
 import me.flaymed.engine.menu.Button;
 import me.flaymed.engine.text.TextField;
 import me.flaymed.engine.text.TextFieldManager;
@@ -30,6 +31,8 @@ public class MouseInput implements MouseListener {
         for (TextField textField : TextFieldManager.getInstance().getTextFields()) {
             if (mx >= textField.getX() && mx <= textField.getX() + textField.getWidth() && my >= textField.getY() && my < textField.getY() + textField.getHeight() && textField.isShown())
                 textField.onClick();
+            else
+                Game.getInstance().setState(GameState.DEFAULT);
         }
 
     }
