@@ -40,7 +40,8 @@ public class KeyInput extends KeyAdapter {
 
         for (TextField textField : textFields) {
             if (textField.isShown())
-                textField.addChar(e.getKeyChar());
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) textField.removeLastChar();
+                else textField.addChar(e.getKeyChar());
         }
 
     }

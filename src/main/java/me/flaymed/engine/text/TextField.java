@@ -20,6 +20,7 @@ public class TextField extends GameObject {
     private String content;
     private int fontsize;
     private int margin;
+    private String allowedChars = "1234567890qwertyuiopasdfghjklzxcvbnm_";
 
     public TextField(String label, int x, int y, int width, int height, int fontsize, int margin) {
         super(x, y, ObjectID.Text, false);
@@ -52,9 +53,14 @@ public class TextField extends GameObject {
     }
 
     public void addChar(char character) {
+        if (!allowedChars.contains(String.valueOf(character))) return;
         int length = getContent().length();
         if (length * (getFontsize()/2) - getMargin() >= getWidth()) return;
         this.content += character;
+    }
+
+    public void removeLastChar() {
+        if (getContent().length() > 0) this.content = getContent().substring(0, getContent().length() - 1);
     }
 
     public String getContent() {
