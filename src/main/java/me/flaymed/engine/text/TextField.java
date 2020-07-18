@@ -53,7 +53,7 @@ public class TextField extends GameObject {
     }
 
     public void addChar(char character) {
-        if (!allowedChars.contains(String.valueOf(character))) return;
+        if (!allowedChars.contains(String.valueOf(character).toLowerCase())) return;
         int length = getContent().length();
         if (length * (getFontsize()/2) - getMargin() >= getWidth()) return;
         this.content += character;
