@@ -52,6 +52,8 @@ public class TextField extends GameObject {
     }
 
     public void addChar(char character) {
+        int length = getContent().length();
+        if (length * (getFontsize()/2) - getMargin() >= getX() + getWidth()) return;
         this.content += character;
     }
 
