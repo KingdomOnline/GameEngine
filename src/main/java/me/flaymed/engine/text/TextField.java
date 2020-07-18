@@ -9,14 +9,15 @@ import me.flaymed.engine.menu.Button;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
-public class TextField extends GameObject implements MouseListener {
+public class TextField extends GameObject {
 
     private String label;
     private int width, height;
     private Color color;
-    private char[] characters;
+    private String content;
     private int fontsize;
     private int margin;
 
@@ -29,9 +30,9 @@ public class TextField extends GameObject implements MouseListener {
         this.height = height;
         this.fontsize = fontsize;
         this.margin = margin;
+        this.content = "";
 
         TextFieldManager.getInstance().addTextField(this);
-        Game.getInstance().addMouseListener(this);
     }
 
     public Color getColor() {
@@ -51,11 +52,11 @@ public class TextField extends GameObject implements MouseListener {
     }
 
     public void addChar(char character) {
-        characters[characters.length] = character;
+        this.content += character;
     }
 
-    public char[] getCharacters() {
-        return characters;
+    public String getContent() {
+        return content;
     }
 
     public int getMargin() {
@@ -64,6 +65,10 @@ public class TextField extends GameObject implements MouseListener {
 
     public String getLabel() {
         return label;
+    }
+
+    public int getFontsize() {
+        return fontsize;
     }
 
     @Override
@@ -80,11 +85,8 @@ public class TextField extends GameObject implements MouseListener {
         g2.setColor(Color.BLACK);
         g2.setFont(new Font(null, Font.PLAIN, fontsize));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.drawString(getLabel(), getX() - (fontsize * getLabel().length()) - getMargin(), (float) (getY() + (0.5 * getWidth()) - (0.5 * fontsize)));
-        if (getCharacters() == null) return;
-        for (int i = 0; i < getCharacters().length; i++) {
-            g2.drawString(String.valueOf(getCharacters()[i]), getX() + getMargin() + (i * fontsize), getY());
-        }
+        g2.drawString(getLabel(), getX(), getY() - getFontsize());
+        g2.drawString(getContent(), getX() + getMargin(), getY() + ((getHeight()/2) - (getFontsize()/2)));
 
     }
 
@@ -92,33 +94,4 @@ public class TextField extends GameObject implements MouseListener {
         Game.getInstance().setState(GameState.TYPING);
     }
 
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        int mx = mouseEvent.getX();
-        int my = mouseEvent.getY();
-
-        if (mx >= getX() && mx <= getX() + getWidth() && my >= getY() && my < getY() + getHeight() && isShown())
-            onClick();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
 }

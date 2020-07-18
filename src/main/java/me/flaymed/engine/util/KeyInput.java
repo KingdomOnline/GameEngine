@@ -13,7 +13,10 @@ public class KeyInput extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (Game.getInstance().getState() == GameState.TYPING) checkTextFields(e);
+        GameState gameState = Game.getInstance().getState();
+
+        if (gameState == GameState.LOADING || gameState == GameState.Closing) return;
+        if (gameState == GameState.TYPING) checkTextFields(e);
         else checkMenus(e);
     }
 
@@ -31,6 +34,8 @@ public class KeyInput extends KeyAdapter {
     }
 
     private void checkTextFields(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) Game.getInstance().setState(GameState.DEFAULT);
+
         List<TextField> textFields = TextFieldManager.getInstance().getTextFields();
 
         for (TextField textField : textFields) {
