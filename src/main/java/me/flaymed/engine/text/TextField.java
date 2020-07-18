@@ -85,9 +85,10 @@ public class TextField extends GameObject {
         g.fillRect(getX(), getY(), getWidth(), getHeight());
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
-        g2.setFont(new Font(null, Font.PLAIN, fontsize));
+        g2.setFont(new Font(null, Font.BOLD, 25));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.drawString(getLabel(), getX(), getY() - getFontsize());
+        g2.drawString(getLabel(), getX(), getY() - 30); //+5 to the font to account for the bold
+        g2.setFont(new Font(null, Font.BOLD, getFontsize()));
         g2.drawString(getContent(), getX() + getMargin(), getY() + ((getHeight()/2) - (getFontsize()/2)));
 
     }
