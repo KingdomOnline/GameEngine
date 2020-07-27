@@ -20,6 +20,7 @@ public class TextField extends GameObject {
     private String content;
     private int fontsize;
     private int margin;
+    private boolean selected = false;
     private String allowedChars = "1234567890qwertyuiopasdfghjklzxcvbnm_";
 
     public TextField(String label, int x, int y, int width, int height, int fontsize, int margin) {
@@ -54,8 +55,10 @@ public class TextField extends GameObject {
 
     public void addChar(char character) {
         if (!allowedChars.contains(String.valueOf(character).toLowerCase())) return;
-        int length = getContent().length();
-        if (length * (getFontsize()/2) - getMargin() >= getWidth()) return;
+        Graphics g = Game.getInstance().getGraphics();
+        g.setFont(new Font(null, Font.PLAIN, getFontsize()));
+        int length = g.getFontMetrics().stringWidth(getContent());
+        if (getX() + length >= getWidth()) return;
         this.content += character;
     }
 
@@ -79,6 +82,14 @@ public class TextField extends GameObject {
         return fontsize;
     }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
     @Override
     public void tick() {
 
@@ -94,13 +105,14 @@ public class TextField extends GameObject {
         g2.setFont(new Font(null, Font.BOLD, 25));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.drawString(getLabel(), getX(), getY() - 30); //+5 to the font to account for the bold
-        g2.setFont(new Font(null, Font.BOLD, getFontsize()));
+        g2.setFont(new Font(null, Font.PLAIN, getFontsize()));
         g2.drawString(getContent(), getX() + getMargin(), getY() + ((getHeight()/2) - (getFontsize()/2)));
 
     }
 
     public void onClick() {
         Game.getInstance().setState(GameState.TYPING);
+        setSelected(true);
     }
 
 }

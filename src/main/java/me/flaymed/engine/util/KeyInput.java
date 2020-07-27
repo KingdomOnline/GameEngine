@@ -34,12 +34,15 @@ public class KeyInput extends KeyAdapter {
     }
 
     private void checkTextFields(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) Game.getInstance().setState(GameState.DEFAULT);
 
         List<TextField> textFields = TextFieldManager.getInstance().getTextFields();
 
         for (TextField textField : textFields) {
-            if (textField.isShown())
+            if (textField.isShown() && textField.isSelected())
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    Game.getInstance().setState(GameState.DEFAULT);
+                    textField.setSelected(false);
+                }
                 if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) textField.removeLastChar();
                 else textField.addChar(e.getKeyChar());
         }

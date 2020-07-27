@@ -8,4 +8,11 @@ public interface TextFields {
 
     List<TextField> getTextFields();
 
+    default void arrangeTextFieldsVertically() {
+        List<TextField> fields = getTextFields();
+        for (TextField field : fields) {
+
+        }
+    }
+
 }

@@ -202,8 +202,8 @@ public class Game extends Canvas {
         return buttons;
     }
 
-    public Point getMousePositionOnScreen() {
-        return MouseInfo.getPointerInfo().getLocation();
+    public Graphics getGraphics() {
+        return this.getBufferStrategy().getDrawGraphics();
     }
 
 }
