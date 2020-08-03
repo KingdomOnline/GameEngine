@@ -20,7 +20,7 @@ public class TextField extends GameObject {
     private String content;
     private int fontsize;
     private int margin;
-    private boolean selected = false;
+    private boolean selected;
     private String allowedChars = "1234567890qwertyuiopasdfghjklzxcvbnm_";
 
     public TextField(String label, int x, int y, int width, int height, int fontsize, int margin) {
@@ -33,6 +33,7 @@ public class TextField extends GameObject {
         this.fontsize = fontsize;
         this.margin = margin;
         this.content = "";
+        this.selected = false;
 
         TextFieldManager.getInstance().addTextField(this);
     }
@@ -58,7 +59,7 @@ public class TextField extends GameObject {
         Graphics g = Game.getInstance().getGraphics();
         g.setFont(new Font(null, Font.PLAIN, getFontsize()));
         int length = g.getFontMetrics().stringWidth(getContent());
-        if (getX() + length >= getWidth()) return;
+        if (length >= getWidth() - getMargin()) return;
         this.content += character;
     }
 
@@ -108,11 +109,6 @@ public class TextField extends GameObject {
         g2.setFont(new Font(null, Font.PLAIN, getFontsize()));
         g2.drawString(getContent(), getX() + getMargin(), getY() + ((getHeight()/2) - (getFontsize()/2)));
 
-    }
-
-    public void onClick() {
-        Game.getInstance().setState(GameState.TYPING);
-        setSelected(true);
     }
 
 }

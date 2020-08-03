@@ -29,9 +29,10 @@ public class MouseInput implements MouseListener {
         }
 
         for (TextField textField : TextFieldManager.getInstance().getTextFields()) {
-            if (mx >= textField.getX() && mx <= textField.getX() + textField.getWidth() && my >= textField.getY() && my < textField.getY() + textField.getHeight() && textField.isShown())
-                textField.onClick();
-            else {
+            if (mx >= textField.getX() && mx <= textField.getX() + textField.getWidth() && my >= textField.getY() && my < textField.getY() + textField.getHeight() && textField.isShown()) {
+                Game.getInstance().setState(GameState.TYPING);
+                textField.setSelected(true);
+            } else {
                 Game.getInstance().setState(GameState.DEFAULT);
                 textField.setSelected(false);
             }
