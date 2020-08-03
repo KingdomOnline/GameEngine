@@ -4,6 +4,7 @@ import me.flaymed.engine.text.TextField;
 
 import java.util.List;
 
+//For Menus or Buttons you want to add TextFields to.
 public interface TextFields {
 
     List<TextField> getTextFields();
