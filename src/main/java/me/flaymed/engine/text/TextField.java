@@ -1,16 +1,9 @@
 package me.flaymed.engine.text;
 
 import me.flaymed.engine.Game;
-import me.flaymed.engine.GameState;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.handler.ObjectID;
-import me.flaymed.engine.menu.Button;
-
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TextField extends GameObject {
 
@@ -36,6 +29,7 @@ public class TextField extends GameObject {
         this.selected = false;
 
         TextFieldManager.getInstance().addTextField(this);
+        Game.getInstance().getMainHandler().addObject(this);
     }
 
     public Color getColor() {
