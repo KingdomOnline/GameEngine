@@ -8,8 +8,9 @@ import me.flaymed.engine.event.loading.LoadingScreenCreateEvent;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.tasks.Task;
+
+import java.awt.*;
 import java.util.List;
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class LoadingScreen extends GameObject {
@@ -66,6 +67,16 @@ public class LoadingScreen extends GameObject {
 
     @Override
     public void render(Graphics g) {
+        int height = Game.getInstance().getWindowHeight();
+        int width = Game.getInstance().getWindowWidth();
+        int percentDone = (getCompletedTasks()/getTaskCount())/100;
+        g.setColor(Color.BLACK);
+        g.fillRect(getX(), getY(), width, height);
+        //loading bar
+        g.setColor(Color.WHITE);
+        g.fillRect(getX() + 100, getY() - 100, width - 100, height - 50);
+        g.setColor(Color.RED);
+        g.fillRect(getX() + 100, getY() - 100, percentDone * (width - 100), height - 50);
 
     }
 }
