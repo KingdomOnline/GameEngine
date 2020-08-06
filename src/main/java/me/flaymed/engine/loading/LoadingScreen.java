@@ -3,6 +3,7 @@ package me.flaymed.engine.loading;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.GameState;
 import me.flaymed.engine.event.EventManager;
+import me.flaymed.engine.event.loading.LoadingFinishEvent;
 import me.flaymed.engine.event.loading.LoadingScreenCreateEvent;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.handler.ObjectID;
@@ -54,6 +55,8 @@ public class LoadingScreen extends GameObject {
             task.execute();
             completedTasks++;
         }
+
+        EventManager.callEvent(new LoadingFinishEvent(this));
     }
 
     @Override
