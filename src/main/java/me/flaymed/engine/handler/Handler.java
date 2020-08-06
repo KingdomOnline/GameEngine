@@ -1,5 +1,8 @@
 package me.flaymed.engine.handler;
 
+import me.flaymed.engine.Game;
+import me.flaymed.engine.GameState;
+import me.flaymed.engine.loading.LoadingScreen;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,8 +23,12 @@ public class Handler {
 
     public void render(Graphics g) {
         for (GameObject object : objects) {
-            if (object.isShown())
+            if (Game.getInstance().getState() == GameState.LOADING && object instanceof LoadingScreen) {
                 object.render(g);
+                continue;
+            }
+
+            if (object.isShown()) object.render(g);
         }
     }
 
