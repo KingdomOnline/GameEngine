@@ -1,5 +1,5 @@
 package me.flaymed.engine.tasks;
 
-public interface Task {
-    void execute();
+public abstract class Task {
+    public abstract void execute();
 }
