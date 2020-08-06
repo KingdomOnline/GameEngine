@@ -1,5 +1,9 @@
 package me.flaymed.engine.loading;
 
+import me.flaymed.engine.Game;
+import me.flaymed.engine.GameState;
+import me.flaymed.engine.event.EventManager;
+import me.flaymed.engine.event.loading.LoadingScreenCreateEvent;
 import me.flaymed.engine.handler.GameObject;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.tasks.Task;
@@ -14,6 +18,16 @@ public class LoadingScreen extends GameObject {
 
     public LoadingScreen() {
         super(0, 0, ObjectID.Menu, true);
+
+        if(!EventManager.callEvent(new LoadingScreenCreateEvent(this))) {
+            try {
+                this.finalize();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        } else {
+            Game.getInstance().setState(GameState.LOADING);
+        }
 
         this.completedTasks = 0;
         this.tasks = new ArrayList<>();
