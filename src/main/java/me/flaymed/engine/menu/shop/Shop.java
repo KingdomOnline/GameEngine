@@ -32,15 +32,12 @@ public class Shop extends Menu {
     }
 
     @Override
-    public void toggled() {
-
-        this.nextButton.toggleShown();
-        this.previousButton.toggleShown();
+    public void toggledOn() {
+        this.nextButton.setShown(true);
+        this.previousButton.setShown(true);
 
         pageCount = 1;
         buttonCount = 0;
-
-        toggleShown();
 
         LinkedList<Button> buttons = getButtons();
 
@@ -48,11 +45,22 @@ public class Shop extends Menu {
             buttonCount++;
 
             if (buttonCount <= (pageCount * buttonPerPage) && buttonCount >= ((pageCount - 1) * buttonPerPage))
-                button.toggleShown();
+                button.setShown(true);
+            else
+                button.setShown(false);
 
         }
-
     }
+
+    @Override
+    public void toggledOff() {
+        this.nextButton.setShown(false);
+        this.previousButton.setShown(false);
+        for (Button button : getButtons()) {
+            button.setShown(false);
+        }
+    }
+
 
     public void nextPage() {
         if (this.pageCount == this.MAX_PAGES)
