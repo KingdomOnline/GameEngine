@@ -64,6 +64,7 @@ public class LoadingScreen extends GameObject {
             e.printStackTrace();
         }
         EventManager.callEvent(new LoadingFinishEvent(this));
+        Game.getInstance().setState(GameState.DEFAULT);
         Game.getMainHandler().removeObject(this);
         try {
             this.finalize();
