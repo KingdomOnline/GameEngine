@@ -28,6 +28,7 @@ public class LoadingScreen extends GameObject {
                 e.printStackTrace();
             }
         } else {
+            Game.getMainHandler().addObject(this);
             Game.getInstance().setState(GameState.LOADING);
         }
 
@@ -57,7 +58,18 @@ public class LoadingScreen extends GameObject {
             completedTasks++;
         }
 
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         EventManager.callEvent(new LoadingFinishEvent(this));
+        Game.getMainHandler().removeObject(this);
+        try {
+            this.finalize();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -69,14 +81,14 @@ public class LoadingScreen extends GameObject {
     public void render(Graphics g) {
         int height = Game.getInstance().getWindowHeight();
         int width = Game.getInstance().getWindowWidth();
-        int percentDone = (getCompletedTasks()/getTaskCount())/100;
+        double percentDone = (double) getCompletedTasks()/getTaskCount();
         g.setColor(Color.BLACK);
-        g.fillRect(getX(), getY(), width, height);
+        g.fillRect(0, 0, width, height);
         //loading bar
         g.setColor(Color.WHITE);
-        g.fillRect(getX() + 100, getY() - 100, width - 100, height - 50);
+        g.fillRect(0, height - 50, width, height);
         g.setColor(Color.RED);
-        g.fillRect(getX() + 100, getY() - 100, percentDone * (width - 100), height - 50);
+        g.fillRect(0, height - 50, (int) (percentDone * width), height);
 
     }
 }

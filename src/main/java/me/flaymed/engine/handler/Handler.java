@@ -23,12 +23,12 @@ public class Handler {
 
     public void render(Graphics g) {
         for (GameObject object : objects) {
-            if (Game.getInstance().getState() == GameState.LOADING && object instanceof LoadingScreen) {
-                object.render(g);
-                continue;
+            if (Game.getInstance().getState() != GameState.LOADING) {
+                if (object.isShown()) object.render(g);
+            } else {
+                if (object instanceof LoadingScreen) object.render(g);
             }
 
-            if (object.isShown()) object.render(g);
         }
     }
 
