@@ -42,11 +42,13 @@ public abstract class Menu extends GameObject {
         toggleShown();
         //Allows this event to be cancelled.
         if (!EventManager.callEvent(new MenuToggleEvent(this))) toggleShown();
-        if (isShown()) toggled();
+        if (isShown()) toggledOn();
+        else toggledOff();
     }
 
     //Just for anything special you want to do when the menu toggles
-    public abstract void toggled();
+    public abstract void toggledOn();
+    public abstract void toggledOff();
 
     @Override
     public void render(Graphics g) {
