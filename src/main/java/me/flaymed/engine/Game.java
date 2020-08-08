@@ -36,7 +36,7 @@ public class Game extends Canvas {
 
         this.mainHandler = new Handler();
         this.gameWindow = new Window(title, this);
-        this.state = GameState.Menu;
+        this.state = GameState.DEFAULT; 
         this.width = width;
         this.height = height;
         this.menus = new LinkedList<>();
