@@ -59,7 +59,7 @@ public class LoadingScreen extends GameObject {
         }
 
         try {
-            Thread.sleep(1);
+            Thread.sleep(1 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
