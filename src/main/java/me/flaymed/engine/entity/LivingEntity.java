@@ -79,12 +79,12 @@ public abstract class LivingEntity extends GameObject {
         return height;
     }
 
-    public void addHealth(double health) {
-        this.hp += health;
+    public void heal(double amount) {
+        this.hp += amount;
     }
 
-    public void subtractHealth(double health) {
-        this.hp -= health;
+    public void damage(double amount) {
+        this.hp -= amount;
     }
 
     public double getMAX_HP() {
