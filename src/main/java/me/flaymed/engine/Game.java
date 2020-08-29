@@ -1,5 +1,6 @@
 package me.flaymed.engine;
 
+import me.flaymed.engine.entity.EntityManager;
 import me.flaymed.engine.event.EventManager;
 import me.flaymed.engine.event.menu.MenuRegisterEvent;
 import me.flaymed.engine.handler.Handler;
@@ -33,6 +34,7 @@ public class Game extends Canvas {
         setUpListeners();
         registerThreads();
         new TextFieldManager();
+        new EntityManager();
 
         this.mainHandler = new Handler();
         this.gameWindow = new Window(title, this);
