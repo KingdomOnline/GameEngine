@@ -1,6 +1,10 @@
 package me.flaymed.engine.entity;
 
 import me.flaymed.engine.Game;
+import me.flaymed.engine.entity.damage.DamageType;
+import me.flaymed.engine.event.EventManager;
+import me.flaymed.engine.event.entity.EntityDeathEvent;
+import me.flaymed.engine.event.entity.EntitySpawnEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
 
@@ -84,7 +88,7 @@ public abstract class LivingEntity extends GameObject {
         if (getHp() > getMAX_HP()) this.hp = getMAX_HP();
     }
 
-    public void damage(double amount) {
+    public void damage(double amount, DamageType type) {
         this.hp -= amount;
         if (getHp() < 0) this.hp = 0;
     }
@@ -102,14 +106,18 @@ public abstract class LivingEntity extends GameObject {
     }
 
     public void spawn() {
-        this.hp = getMAX_HP();
-        setShown(true);
-        EntityManager.getInstance().registerEntity(this);
+        if (!EventManager.callEvent(new EntitySpawnEvent(this))) {
+            this.hp = getMAX_HP();
+            setShown(true);
+            EntityManager.getInstance().registerEntity(this);
+        }
     }
 
     public void kill() {
-        this.hp = 0;
-        setShown(false);
+        if (!EventManager.callEvent(new EntityDeathEvent(this))) {
+            this.hp = 0;
+            setShown(false);
+        }
     }
 
     public void removeFromGame() {
