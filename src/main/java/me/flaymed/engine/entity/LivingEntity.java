@@ -40,7 +40,7 @@ public abstract class LivingEntity extends GameObject {
     }
 
     public void moveIfNotMoving(int mx, int my) {
-        if (getxVel() == 0 && getyVel() == 0)
+        if (!isMoving())
             move(mx, my);
     }
 
@@ -154,5 +154,9 @@ public abstract class LivingEntity extends GameObject {
     public boolean isAlive() {
         return getHp() <= 0;
     }
-    
+
+    public boolean isMoving() {
+        return getxVel() == 0 && getyVel() == 0;
+    }
+
 }
