@@ -81,10 +81,12 @@ public abstract class LivingEntity extends GameObject {
 
     public void heal(double amount) {
         this.hp += amount;
+        if (getHp() > getMAX_HP()) this.hp = getMAX_HP();
     }
 
     public void damage(double amount) {
         this.hp -= amount;
+        if (getHp() < 0) this.hp = 0;
     }
 
     public double getMAX_HP() {
@@ -99,9 +101,20 @@ public abstract class LivingEntity extends GameObject {
         return (int) getHp();
     }
 
-    private void kill() {
-        //Doesn't remove the object from game object lists so we can "revive" entities in the future.
+    public void spawn() {
+        this.hp = getMAX_HP();
+        setShown(true);
+        EntityManager.getInstance().registerEntity(this);
+    }
+
+    public void kill() {
+        this.hp = 0;
         setShown(false);
+    }
+
+    public void removeFromGame() {
+        EntityManager.getInstance().unregisterEntity(this);
+        Game.getMainHandler().removeObject(this);
     }
 
     public boolean isAlive() {
