@@ -154,6 +154,5 @@ public abstract class LivingEntity extends GameObject {
     public boolean isAlive() {
         return getHp() <= 0;
     }
-
-
+    
 }
