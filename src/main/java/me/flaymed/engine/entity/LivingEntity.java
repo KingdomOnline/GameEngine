@@ -8,6 +8,7 @@ import me.flaymed.engine.event.entity.EntityDeathEvent;
 import me.flaymed.engine.event.entity.EntitySpawnEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
+import me.flaymed.engine.util.RandomPositionGenerator;
 
 public abstract class LivingEntity extends GameObject {
 
@@ -87,6 +88,9 @@ public abstract class LivingEntity extends GameObject {
     }
 
     private void manageMovement() {
+
+        moveIfNotMoving(RandomPositionGenerator.generateRandomValue(0, Game.getInstance().getWindowWidth()), RandomPositionGenerator.generateRandomValue(0, Game.getInstance().getWindowHeight()));
+
         if (my == y)
             yVel = 0;
 
