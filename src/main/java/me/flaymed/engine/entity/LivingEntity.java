@@ -3,6 +3,7 @@ package me.flaymed.engine.entity;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.entity.damage.DamageType;
 import me.flaymed.engine.event.EventManager;
+import me.flaymed.engine.event.entity.EntityDamageEvent;
 import me.flaymed.engine.event.entity.EntityDeathEvent;
 import me.flaymed.engine.event.entity.EntitySpawnEvent;
 import me.flaymed.engine.handler.ObjectID;
@@ -14,6 +15,8 @@ public abstract class LivingEntity extends GameObject {
     private int mx, my;
     private double MAX_HP;
     private double hp;
+    private double thirst;
+    private double hunger;
 
     public LivingEntity(int x, int y, int MAX_HP, int hp, int width, int height) {
         super(x, y, ObjectID.LivingEntity, false);
@@ -21,6 +24,8 @@ public abstract class LivingEntity extends GameObject {
         this.hp = hp;
         this.width = width;
         this.height = height;
+        this.thirst = 100;
+        this.hunger = 100;
 
         Game.getMainHandler().addObject(this);
     }
@@ -63,6 +68,25 @@ public abstract class LivingEntity extends GameObject {
 
     @Override
     public void tick() {
+        manageHunger();
+        manageThirst();
+        checkIfDead();
+        manageMovement();
+    }
+
+    private void manageHunger() {
+
+    }
+
+    private void manageThirst() {
+
+    }
+
+    private void checkIfDead() {
+        if (!isAlive()) kill();
+    }
+
+    private void manageMovement() {
         if (my == y)
             yVel = 0;
 
@@ -89,8 +113,10 @@ public abstract class LivingEntity extends GameObject {
     }
 
     public void damage(double amount, DamageType type) {
-        this.hp -= amount;
-        if (getHp() < 0) this.hp = 0;
+        if (!EventManager.callEvent(new EntityDamageEvent(this, amount, type))) {
+            this.hp -= amount;
+            if (getHp() < 0) this.hp = 0;
+        }
     }
 
     public double getMAX_HP() {
