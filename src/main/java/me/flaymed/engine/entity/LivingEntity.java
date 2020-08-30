@@ -19,10 +19,10 @@ public abstract class LivingEntity extends GameObject {
     private double thirst;
     private double hunger;
 
-    public LivingEntity(int x, int y, int MAX_HP, int hp, int width, int height) {
+    public LivingEntity(int x, int y, int MAX_HP, int width, int height) {
         super(x, y, ObjectID.LivingEntity, false);
         this.MAX_HP = MAX_HP;
-        this.hp = hp;
+        this.hp = MAX_HP;
         this.width = width;
         this.height = height;
         this.thirst = 100;
