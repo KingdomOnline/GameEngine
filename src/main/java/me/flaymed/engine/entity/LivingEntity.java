@@ -33,6 +33,9 @@ public abstract class LivingEntity extends GameObject {
 
     abstract String getName();
     abstract EntityType getEntityType();
+    abstract boolean canDehydrate();
+    abstract boolean canStarve();
+    abstract Class<? extends LivingEntity> getFoodSource();
 
     private int clamp(int var, int min, int max) {
         if (var >= max) return var = max;
@@ -76,11 +79,19 @@ public abstract class LivingEntity extends GameObject {
     }
 
     private void manageHunger() {
+        if (getHunger() == 100) return;
+        if (getHunger() > 100) this.hunger = 100;
 
+        this.hunger -= 0.1;
+        if (isStarving()) damage(1, DamageType.STARVE);
     }
 
     private void manageThirst() {
+        if (getThirst() == 100) return;
+        if (getThirst() > 100) this.thirst = 100;
 
+        this.thirst -= 0.2;
+        if (isDehydrated()) damage(1, DamageType.THIRST);
     }
 
     private void checkIfDead() {
@@ -88,6 +99,17 @@ public abstract class LivingEntity extends GameObject {
     }
 
     private void manageMovement() {
+
+        if (isStarving() && canStarve()) {
+            for (LivingEntity entity : EntityManager.getInstance().getEntities()) {
+                if (entity.getClass() == getFoodSource() && entity.isAlive()) {
+                    move(entity.getX(), entity.getY());
+                    break;
+                }
+            }
+        }
+
+        //TODO: Dehydrated logic
 
         moveIfNotMoving(RandomPositionGenerator.generateRandomValue(0, Game.getInstance().getWindowWidth()), RandomPositionGenerator.generateRandomValue(0, Game.getInstance().getWindowHeight()));
 
@@ -135,6 +157,23 @@ public abstract class LivingEntity extends GameObject {
         return (int) getHp();
     }
 
+    public double getHunger() {
+        return hunger;
+    }
+
+    public double getThirst() {
+        return thirst;
+    }
+
+    public boolean isStarving() {
+        return getHunger() > 0;
+    }
+
+    public boolean isDehydrated() {
+        return getThirst() > 0;
+    }
+
+
     public void spawn() {
         if (!EventManager.callEvent(new EntitySpawnEvent(this))) {
             this.hp = getMAX_HP();
@@ -156,7 +195,7 @@ public abstract class LivingEntity extends GameObject {
     }
 
     public boolean isAlive() {
-        return getHp() <= 0;
+        return getHp() >= 0;
     }
 
     public boolean isMoving() {
