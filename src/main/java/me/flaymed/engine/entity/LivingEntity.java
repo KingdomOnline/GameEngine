@@ -84,7 +84,10 @@ public abstract class LivingEntity extends GameObject {
 
     private void manageHunger() {
         if (getHunger() == 100) return;
-        if (getHunger() > 100) this.hunger = 100;
+        if (getHunger() > 100) {
+            this.hunger = 100;
+            return;
+        }
 
         if (isStarving() && canStarve()) {
 
