@@ -86,24 +86,6 @@ public abstract class LivingEntity extends GameObject {
         if (getHunger() == 100) return;
         if (getHunger() > 100) this.hunger = 100;
 
-        modifyHunger(-0.1);
-        if (isStarving()) damage(1, DamageType.STARVE);
-    }
-
-    private void manageThirst() {
-        if (getThirst() == 100) return;
-        if (getThirst() > 100) this.thirst = 100;
-
-        modifyThirst(-0.2);
-        if (isDehydrated()) damage(1, DamageType.THIRST);
-    }
-
-    private void checkIfDead() {
-        if (!isAlive()) kill();
-    }
-
-    private void manageMovement() {
-
         if (isStarving() && canStarve()) {
 
             if (this instanceof Predator) {
@@ -125,6 +107,24 @@ public abstract class LivingEntity extends GameObject {
             }
 
         }
+
+        modifyHunger(-0.1);
+        if (isStarving()) damage(1, DamageType.STARVE);
+    }
+
+    private void manageThirst() {
+        if (getThirst() == 100) return;
+        if (getThirst() > 100) this.thirst = 100;
+
+        modifyThirst(-0.2);
+        if (isDehydrated()) damage(1, DamageType.THIRST);
+    }
+
+    private void checkIfDead() {
+        if (!isAlive()) kill();
+    }
+
+    private void manageMovement() {
 
         //TODO: Dehydrated logic
 
