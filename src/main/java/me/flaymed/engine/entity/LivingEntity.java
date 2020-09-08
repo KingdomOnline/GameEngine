@@ -3,6 +3,7 @@ package me.flaymed.engine.entity;
 import me.flaymed.engine.Game;
 import me.flaymed.engine.entity.damage.DamageType;
 import me.flaymed.engine.entity.environment.EnvironmentManager;
+import me.flaymed.engine.entity.environment.Lake;
 import me.flaymed.engine.entity.environment.Plant;
 import me.flaymed.engine.entity.type.Herbivore;
 import me.flaymed.engine.entity.type.Predator;
@@ -12,8 +13,8 @@ import me.flaymed.engine.event.entity.EntityDeathEvent;
 import me.flaymed.engine.event.entity.EntitySpawnEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
-import me.flaymed.engine.menu.shop.PreviousButton;
 import me.flaymed.engine.util.RandomPositionGenerator;
+import java.util.Random;
 
 public abstract class LivingEntity extends GameObject {
 
@@ -42,8 +43,8 @@ public abstract class LivingEntity extends GameObject {
     abstract boolean canStarve();
 
     private int clamp(int var, int min, int max) {
-        if (var >= max) return var = max;
-        else if (var <= min) return var = min;
+        if (var >= max) return max;
+        else if (var <= min) return min;
         else return var;
     }
 
@@ -76,9 +77,9 @@ public abstract class LivingEntity extends GameObject {
 
     @Override
     public void tick() {
-        manageHunger();
-        manageThirst();
         checkIfDead();
+        manageThirst();
+        manageHunger();
         manageMovement();
     }
 
@@ -89,8 +90,9 @@ public abstract class LivingEntity extends GameObject {
             return;
         }
 
-        if (isStarving() && canStarve()) {
+        if (isStarving() || canStarve()) {
 
+            if (getHunger() >= 80) return;
             if (this instanceof Predator) {
                 for (LivingEntity entity : EntityManager.getInstance().getEntities()) {
                     if (!entity.isAlive() || !entity.isShown()) continue;
@@ -117,7 +119,37 @@ public abstract class LivingEntity extends GameObject {
 
     private void manageThirst() {
         if (getThirst() == 100) return;
-        if (getThirst() > 100) this.thirst = 100;
+        if (getThirst() > 100) {
+            this.thirst = 100;
+            return;
+        }
+
+        if (canDehydrate() || isDehydrated()) {
+            if (getThirst() > 80) return;
+
+            for (Lake lake : EnvironmentManager.getINSTANCE().getLakes()) {
+                if (!lake.isShown()) continue;
+                Random random = new Random();
+                if (random.nextBoolean()) {
+                    //Go along the x of the lake
+
+                    if (random.nextBoolean()) {
+                        // positive x (to the right of the center)
+                    } else {
+                        // negative x (to the left of the center)
+                    }
+
+                } else {
+                    //Go long the y of the lake
+                    if (random.nextBoolean()) {
+                        // positive y (above the center)
+                    } else {
+                        // negative y (below the center)
+                    }
+                }
+            }
+
+        }
 
         modifyThirst(-0.2);
         if (isDehydrated()) damage(1, DamageType.THIRST);
@@ -128,8 +160,6 @@ public abstract class LivingEntity extends GameObject {
     }
 
     private void manageMovement() {
-
-        //TODO: Dehydrated logic
 
         moveIfNotMoving(RandomPositionGenerator.generateRandomValue(0, Game.getInstance().getWindowWidth()), RandomPositionGenerator.generateRandomValue(0, Game.getInstance().getWindowHeight()));
 
