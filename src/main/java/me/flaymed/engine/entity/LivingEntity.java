@@ -2,6 +2,8 @@ package me.flaymed.engine.entity;
 
 import me.flaymed.engine.Game;
 import me.flaymed.engine.entity.damage.DamageType;
+import me.flaymed.engine.entity.environment.EnvironmentManager;
+import me.flaymed.engine.entity.environment.Plant;
 import me.flaymed.engine.entity.type.Herbivore;
 import me.flaymed.engine.entity.type.Predator;
 import me.flaymed.engine.event.EventManager;
@@ -106,15 +108,20 @@ public abstract class LivingEntity extends GameObject {
 
             if (this instanceof Predator) {
                 for (LivingEntity entity : EntityManager.getInstance().getEntities()) {
-                    if (!isAlive() || !isShown()) continue;
+                    if (!entity.isAlive() || !entity.isShown()) continue;
                     if (entity.getClass() == ((Predator) this).getAnimalFood()) {
                         moveIfNotMoving(entity.getX(), entity.getY());
+                        return;
                     }
                 }
             }
 
             if (this instanceof Herbivore) {
-
+                for (Plant plant : EnvironmentManager.getINSTANCE().getPlants()) {
+                    if (!plant.isShown()) continue;
+                    moveIfNotMoving(plant.getX(), plant.getY());
+                    return;
+                }
             }
 
         }
