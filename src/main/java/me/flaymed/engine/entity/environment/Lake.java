@@ -1,27 +1,19 @@
 package me.flaymed.engine.entity.environment;
 
-import me.flaymed.engine.handler.GameObject;
-import me.flaymed.engine.handler.ObjectID;
+import me.flaymed.engine.entity.LivingEntity;
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class Lake extends GameObject {
-
-    private int width, height;
+public class Lake extends EnvironmentObject {
 
     public Lake(int x, int y, int width, int height) {
-        super(x, y, ObjectID.LivingEntity, false);
+        super(x, y, width, height);
 
-        this.width = width;
-        this.height = height;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    @Override
+    public void interact(LivingEntity entity) {
+        entity.modifyThirst(10);
     }
 
     @Override

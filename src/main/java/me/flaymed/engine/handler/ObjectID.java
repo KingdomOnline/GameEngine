@@ -6,6 +6,7 @@ public enum ObjectID {
     Button(),
     Menu(),
     LivingEntity(),
+    EnvironmentObject(),
     Building();
 
 }

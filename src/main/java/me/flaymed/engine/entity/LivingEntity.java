@@ -2,12 +2,15 @@ package me.flaymed.engine.entity;
 
 import me.flaymed.engine.Game;
 import me.flaymed.engine.entity.damage.DamageType;
+import me.flaymed.engine.entity.type.Herbivore;
+import me.flaymed.engine.entity.type.Predator;
 import me.flaymed.engine.event.EventManager;
 import me.flaymed.engine.event.entity.EntityDamageEvent;
 import me.flaymed.engine.event.entity.EntityDeathEvent;
 import me.flaymed.engine.event.entity.EntitySpawnEvent;
 import me.flaymed.engine.handler.ObjectID;
 import me.flaymed.engine.handler.GameObject;
+import me.flaymed.engine.menu.shop.PreviousButton;
 import me.flaymed.engine.util.RandomPositionGenerator;
 
 public abstract class LivingEntity extends GameObject {
@@ -35,7 +38,6 @@ public abstract class LivingEntity extends GameObject {
     abstract EntityType getEntityType();
     abstract boolean canDehydrate();
     abstract boolean canStarve();
-    abstract Class<? extends LivingEntity> getFoodSource();
 
     private int clamp(int var, int min, int max) {
         if (var >= max) return var = max;
@@ -82,7 +84,7 @@ public abstract class LivingEntity extends GameObject {
         if (getHunger() == 100) return;
         if (getHunger() > 100) this.hunger = 100;
 
-        this.hunger -= 0.1;
+        modifyHunger(-0.1);
         if (isStarving()) damage(1, DamageType.STARVE);
     }
 
@@ -90,7 +92,7 @@ public abstract class LivingEntity extends GameObject {
         if (getThirst() == 100) return;
         if (getThirst() > 100) this.thirst = 100;
 
-        this.thirst -= 0.2;
+        modifyThirst(-0.2);
         if (isDehydrated()) damage(1, DamageType.THIRST);
     }
 
@@ -101,12 +103,20 @@ public abstract class LivingEntity extends GameObject {
     private void manageMovement() {
 
         if (isStarving() && canStarve()) {
-            for (LivingEntity entity : EntityManager.getInstance().getEntities()) {
-                if (entity.getClass() == getFoodSource() && entity.isAlive()) {
-                    move(entity.getX(), entity.getY());
-                    break;
+
+            if (this instanceof Predator) {
+                for (LivingEntity entity : EntityManager.getInstance().getEntities()) {
+                    if (!isAlive() || !isShown()) continue;
+                    if (entity.getClass() == ((Predator) this).getAnimalFood()) {
+                        moveIfNotMoving(entity.getX(), entity.getY());
+                    }
                 }
             }
+
+            if (this instanceof Herbivore) {
+
+            }
+
         }
 
         //TODO: Dehydrated logic
@@ -161,8 +171,16 @@ public abstract class LivingEntity extends GameObject {
         return hunger;
     }
 
+    public void modifyHunger(double amount) {
+        this.hunger += hunger;
+    }
+
     public double getThirst() {
         return thirst;
+    }
+
+    public void modifyThirst(double amount) {
+        this.thirst += amount;
     }
 
     public boolean isStarving() {
